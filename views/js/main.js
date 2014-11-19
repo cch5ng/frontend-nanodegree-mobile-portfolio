@@ -537,10 +537,12 @@ document.addEventListener('DOMContentLoaded', function() {
   updatePositions();
 });
 
+//TODO, probably need to integrate with existing script better
+//currently it is breaking on display of 2nd pizza
 // localStorage with image
 // https://gist.github.com/robnyman/1875176#file-localstorage-canvas-data-url-js
 var storageFiles = JSON.parse(localStorage.getItem("storageFiles")) || {},
-    pizza = document.querySelector(".img-pizza"),
+    pizzaList = document.querySelectorAll(".img-pizza"),
     storageFilesDate = storageFiles.date,
     date = new Date(),
     todaysDate = (date.getMonth() + 1).toString() + date.getDate().toString();
@@ -548,19 +550,20 @@ var storageFiles = JSON.parse(localStorage.getItem("storageFiles")) || {},
 // Compare date and create localStorage if it's not existing/too old   
 if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
     // Take action when the image has loaded
-    pizza.addEventListener("load", function () {
+    pizzaList[0].addEventListener("load", function () {
         var imgCanvas = document.createElement("canvas"),
             imgContext = imgCanvas.getContext("2d");
  
         // Make sure canvas is as big as the picture
-        imgCanvas.width = pizza.width;
-        imgCanvas.height = pizza.height;
+        imgCanvas.width = pizzaList[0].width;
+        imgCanvas.height = pizzaList[0].height;
  
         // Draw image into canvas element
-        imgContext.drawImage(pizza, 0, 0, pizza.width, pizza.height);
+        //this needs to be done per element in list
+        imgContext.drawImage(pizzaList, 0, 0, pizzaList.width, pizzaList.height);
  
         // Save image as a data URL
-        storageFiles.pizza = imgCanvas.toDataURL("image/png");
+        storageFiles.pizzaList[0] = imgCanvas.toDataURL("image/png");
  
         // Set date for localStorage
         storageFiles.date = todaysDate;
@@ -575,9 +578,9 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
     }, false);
  
     // Set initial image src    
-    pizza.setAttribute("src", "images/pizza.png");
+    pizzaList[0].setAttribute("src", "images/pizza.png");
 }
 else {
     // Use image from localStorage
-    pizza.setAttribute("src", storageFiles.pizza);
+    pizzaList[0].setAttribute("src", storageFiles.pizzaList);
 }
