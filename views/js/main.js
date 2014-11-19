@@ -564,7 +564,7 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
         imgContext.drawImage(pizzaList.item(0), 0, 0, pizzaList.item(0).width, pizzaList.item(0).height);
  
         // Save image as a data URL
-        storageFiles.pizzaList.item(0) = imgCanvas.toDataURL("image/png");
+        storageFiles.pizza = imgCanvas.toDataURL("image/png");
  
         // Set date for localStorage
         storageFiles.date = todaysDate;
@@ -583,5 +583,5 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
 }
 else {
     // Use image from localStorage
-    pizzaList.item(0).setAttribute("src", storageFiles.pizzaList);
+    pizzaList.item(0).setAttribute("src", storageFiles.pizza);
 }
