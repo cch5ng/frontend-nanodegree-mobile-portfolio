@@ -25,7 +25,7 @@ var storageFiles = JSON.parse(localStorage.getItem("storageFiles")) || {},
     date = new Date(),
     todaysDate = (date.getMonth() + 1).toString() + date.getDate().toString();
 
-console.log(pizzaList.item(0));
+//console.log(pizzaList.item(0));
 // Compare date and create localStorage if it's not existing/too old   
 if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
     // Take action when the image has loaded
@@ -431,9 +431,9 @@ var pizzaElementGenerator = function(i) {
 
   pizzaImage.src = storageFiles.pizza; //"images/pizza.png"
   pizzaImage.classList.add("img-responsive");
+  pizzaImage.classList.add("img-pizza");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
-
 
   pizzaDescriptionContainer.classList.add("col-md-6");
 
@@ -520,10 +520,12 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
-  pizzasDiv.appendChild(pizzaElementGenerator(i));
-}
+document.addEventListener('DOMContentLoaded', function() {
+  for (var i = 2; i < 100; i++) {
+    var pizzasDiv = document.getElementById("randomPizzas");
+    pizzasDiv.appendChild(pizzaElementGenerator(i));
+  }
+});
 
 // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
 window.performance.mark("mark_end_generating");
