@@ -562,6 +562,7 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
         // Draw image into canvas element
         //this needs to be done per element in list
         imgContext.drawImage(pizzaList.item(0), 0, 0, pizzaList.item(0).width, pizzaList.item(0).height);
+        imgContext.drawImage(pizzaList.item(1), 0, 0, pizzaList.item(1).width, pizzaList.item(1).height); //this might break
  
         // Save image as a data URL
         storageFiles.pizza = imgCanvas.toDataURL("image/png");
