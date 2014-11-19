@@ -5,7 +5,6 @@ jank-free at 60 frames per second.
 There are two major issues in this code that lead to sub-60fps performance. Can
 you spot and fix both?
 
-
 Built into the code, you'll find a few instances of the User Timing API
 (window.performance), which will be console.log()ing frame rate data into the
 browser console. To learn more about User Timing API, check out:
@@ -537,3 +536,48 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   updatePositions();
 });
+
+// localStorage with image
+// https://gist.github.com/robnyman/1875176#file-localstorage-canvas-data-url-js
+var storageFiles = JSON.parse(localStorage.getItem("storageFiles")) || {},
+    pizza = document.querySelector(".img-pizza"),
+    storageFilesDate = storageFiles.date,
+    date = new Date(),
+    todaysDate = (date.getMonth() + 1).toString() + date.getDate().toString();
+ 
+// Compare date and create localStorage if it's not existing/too old   
+if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
+    // Take action when the image has loaded
+    pizza.addEventListener("load", function () {
+        var imgCanvas = document.createElement("canvas"),
+            imgContext = imgCanvas.getContext("2d");
+ 
+        // Make sure canvas is as big as the picture
+        imgCanvas.width = pizza.width;
+        imgCanvas.height = pizza.height;
+ 
+        // Draw image into canvas element
+        imgContext.drawImage(pizza, 0, 0, pizza.width, pizza.height);
+ 
+        // Save image as a data URL
+        storageFiles.pizza = imgCanvas.toDataURL("image/png");
+ 
+        // Set date for localStorage
+        storageFiles.date = todaysDate;
+ 
+        // Save as JSON in localStorage
+        try {
+            localStorage.setItem("storageFiles", JSON.stringify(storageFiles));
+        }
+        catch (e) {
+            console.log("Storage failed: " + e);
+        }
+    }, false);
+ 
+    // Set initial image src    
+    pizza.setAttribute("src", "images/pizza.png");
+}
+else {
+    // Use image from localStorage
+    pizza.setAttribute("src", storageFiles.pizza);
+}
