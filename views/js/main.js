@@ -579,5 +579,5 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
 }
 else {
     // Use image from localStorage
-    pizza.getAttribute("src", storageFiles.pizza);
+    pizza.setAttribute("src", storageFiles.pizza);
 }
