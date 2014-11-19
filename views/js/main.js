@@ -581,8 +581,10 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
  
     // Set initial image src    
     pizzaList.item(0).setAttribute("src", "images/pizza.png");
+    pizzaList.item(1).setAttribute("src", "images/pizza.png");
 }
 else {
     // Use image from localStorage
     pizzaList.item(0).setAttribute("src", storageFiles.pizza);
+    pizzaList.item(1).setAttribute("src", storageFiles.pizza);
 }
