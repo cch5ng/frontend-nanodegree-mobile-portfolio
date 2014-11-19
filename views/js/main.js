@@ -555,15 +555,15 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
             imgContext = imgCanvas.getContext("2d");
  
         // Make sure canvas is as big as the picture
-        imgCanvas.width = pizzaList[0].width;
-        imgCanvas.height = pizzaList[0].height;
+        imgCanvas.width = pizzaList.item(0).width;
+        imgCanvas.height = pizzaList.item(0).height;
  
         // Draw image into canvas element
         //this needs to be done per element in list
-        imgContext.drawImage(pizzaList, 0, 0, pizzaList.width, pizzaList.height);
+        imgContext.drawImage(pizzaList.item(0), 0, 0, pizzaList.item(0).width, pizzaList.item(0).height);
  
         // Save image as a data URL
-        storageFiles.pizzaList[0] = imgCanvas.toDataURL("image/png");
+        storageFiles.pizzaList.item(0) = imgCanvas.toDataURL("image/png");
  
         // Set date for localStorage
         storageFiles.date = todaysDate;
@@ -578,9 +578,9 @@ if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
     }, false);
  
     // Set initial image src    
-    pizzaList[0].setAttribute("src", "images/pizza.png");
+    pizzaList.item(0).setAttribute("src", "images/pizza.png");
 }
 else {
     // Use image from localStorage
-    pizzaList[0].setAttribute("src", storageFiles.pizzaList);
+    pizzaList.item(0).setAttribute("src", storageFiles.pizzaList);
 }
