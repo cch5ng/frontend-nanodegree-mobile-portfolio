@@ -546,7 +546,8 @@ var storageFiles = JSON.parse(localStorage.getItem("storageFiles")) || {},
     storageFilesDate = storageFiles.date,
     date = new Date(),
     todaysDate = (date.getMonth() + 1).toString() + date.getDate().toString();
- 
+
+console.log(pizzaList.item(0));
 // Compare date and create localStorage if it's not existing/too old   
 if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
     // Take action when the image has loaded
