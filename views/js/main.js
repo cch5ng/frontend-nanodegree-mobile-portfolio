@@ -5,6 +5,7 @@ jank-free at 60 frames per second.
 There are two major issues in this code that lead to sub-60fps performance. Can
 you spot and fix both?
 
+
 Built into the code, you'll find a few instances of the User Timing API
 (window.performance), which will be console.log()ing frame rate data into the
 browser console. To learn more about User Timing API, check out:
@@ -377,11 +378,11 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.src = storageFiles.pizza; //"images/pizza.png"
+  pizzaImage.src = "images/pizza.png";
   pizzaImage.classList.add("img-responsive");
-  pizzaImage.classList.add("img-pizza");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
+
 
   pizzaDescriptionContainer.classList.add("col-md-6");
 
@@ -458,64 +459,6 @@ var resizePizzas = function(size) {
 
   changePizzaSizes(size);
 
-// This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
-  pizzasDiv.appendChild(pizzaElementGenerator(i));
-}
-
-  //TODO, probably need to integrate with existing script better
-//currently it is breaking on display of 2nd pizza
-// localStorage with image
-// https://gist.github.com/robnyman/1875176#file-localstorage-canvas-data-url-js
-var storageFiles = JSON.parse(localStorage.getItem("storageFiles")) || {},
-    pizzaList = document.querySelectorAll(".img-pizza"),
-    storageFilesDate = storageFiles.date,
-    date = new Date(),
-    todaysDate = (date.getMonth() + 1).toString() + date.getDate().toString();
-
-//console.log(pizzaList.item(0));
-// Compare date and create localStorage if it's not existing/too old   
-if (typeof storageFilesDate === "undefined" || storageFilesDate < todaysDate) {
-    // Take action when the image has loaded
-    pizzaList[0].addEventListener("load", function () {
-        var imgCanvas = document.createElement("canvas"),
-            imgContext = imgCanvas.getContext("2d");
- 
-        // Make sure canvas is as big as the picture
-        imgCanvas.width = pizzaList.item(0).width;
-        imgCanvas.height = pizzaList.item(0).height;
- 
-        // Draw image into canvas element
-        //this needs to be done per element in list
-        imgContext.drawImage(pizzaList.item(0), 0, 0, pizzaList.item(0).width, pizzaList.item(0).height);
-        imgContext.drawImage(pizzaList.item(1), 0, 0, pizzaList.item(1).width, pizzaList.item(1).height); //this might break
- 
-        // Save image as a data URL
-        storageFiles.pizza = imgCanvas.toDataURL("image/png");
- 
-        // Set date for localStorage
-        storageFiles.date = todaysDate;
- 
-        // Save as JSON in localStorage
-        try {
-            localStorage.setItem("storageFiles", JSON.stringify(storageFiles));
-        }
-        catch (e) {
-            console.log("Storage failed: " + e);
-        }
-    }, false);
- 
-    // Set initial image src    
-    pizzaList.item(0).setAttribute("src", "images/pizza.png");
-    pizzaList.item(1).setAttribute("src", "images/pizza.png");
-}
-else {
-    // Use image from localStorage
-    pizzaList.item(0).setAttribute("src", storageFiles.pizza);
-    pizzaList.item(1).setAttribute("src", storageFiles.pizza);
-}
-
   // User Timing API is awesome
   window.performance.mark("mark_end_resize");
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
@@ -524,6 +467,12 @@ else {
 }
 
 window.performance.mark("mark_start_generating"); // collect timing data
+
+// This for-loop actually creates and appends all of the pizzas when the page loads
+for (var i = 2; i < 100; i++) {
+  var pizzasDiv = document.getElementById("randomPizzas");
+  pizzasDiv.appendChild(pizzaElementGenerator(i));
+}
 
 // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
 window.performance.mark("mark_end_generating");
@@ -579,7 +528,7 @@ document.addEventListener('DOMContentLoaded', function() {
   for (var i = 0; i < 200; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = storageFiles.pizza; //"images/pizza.png"
+    elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
