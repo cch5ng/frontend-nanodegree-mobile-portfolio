@@ -369,6 +369,9 @@ var pizzaElementGenerator = function(i) {
 
   pizzaContainer  = document.createElement("div");
   pizzaImageContainer = document.createElement("div");
+  pizzaPicture = document.createElement("picture");
+  pizzaSource1 = document.createElement("source");
+  pizzaSource2 = document.createElement("source");
   pizzaImage = document.createElement("img");
   pizzaDescriptionContainer = document.createElement("div");
 
@@ -378,12 +381,22 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.srcset = "images/pizza.png 212w, images/pizza_lg_phn.png 67w"; //updated to try out responsive images
+  pizzaImageContainer.appendChild(pizzaPicture);
+  pizzaSource1.media = "(max-width: 640px)";
+  pizzaSource1.srcset = "images/pizza_lg_phn.jpg";
+//<source media="(max-width: 640px)" srcset="images/pizza_lg_phn.jpg" />
+  pizzaSource2.media = "(min-width: 641px)";
+  pizzaSource2.srcset = "images/pizza.jpg";
+//<source media="(min-width: 641px)" srcset="images/pizza.jpg" />
+  pizzaPicture.appendChild(pizzaSource1);
+  pizzaPicture.appendChild(pizzaSource2);
+
+  //pizzaImage.srcset = "images/pizza.png 212w, images/pizza_lg_phn.png 67w"; //updated to try out responsive images
   pizzaImage.src = "images/pizza.png"; //updated to try out responsive images
   pizzaImage.classList.add("img-responsive");
-  pizzaImageContainer.appendChild(pizzaImage);
+  //pizzaImageContainer.appendChild(pizzaImage);
+  pizzaPicture.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
-
 
   pizzaDescriptionContainer.classList.add("col-md-6");
 
