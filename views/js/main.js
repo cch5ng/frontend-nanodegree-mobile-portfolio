@@ -383,11 +383,9 @@ var pizzaElementGenerator = function(i) {
 
   pizzaImageContainer.appendChild(pizzaPicture);
   pizzaSource1.media = "(max-width: 640px)";
-  pizzaSource1.srcset = "images/pizza_lg_phn.jpg";
-//<source media="(max-width: 640px)" srcset="images/pizza_lg_phn.jpg" />
+  pizzaSource1.srcset = "images/pizza_lg_phn.png";
   pizzaSource2.media = "(min-width: 641px)";
-  pizzaSource2.srcset = "images/pizza.jpg";
-//<source media="(min-width: 641px)" srcset="images/pizza.jpg" />
+  pizzaSource2.srcset = "images/pizza.png";
   pizzaPicture.appendChild(pizzaSource1);
   pizzaPicture.appendChild(pizzaSource2);
 
