@@ -378,8 +378,8 @@ var pizzaElementGenerator = function(i) {
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImage.srcset = "images/pizza_lg.png 212w, images/pizza_med.png 108w"; //updated to try out responsive images
-  pizzaImage.src = "images/pizza_lg.png"; //updated to try out responsive images
+  //pizzaImage.srcset = "images/pizza_lg.png 212w, images/pizza_med.png 108w"; //updated to try out responsive images
+  pizzaImage.src = "images/pizza.png"; //updated to try out responsive images
   pizzaImage.classList.add("img-responsive");
   pizzaImageContainer.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
