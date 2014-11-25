@@ -537,7 +537,7 @@ function requestTick() {
   if (!ticking) {
     updatePositions();
   }
-  ticking = true;
+  //ticking = true;
 }
 
 // Moves the sliding background pizzas based on scroll position
