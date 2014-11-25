@@ -557,7 +557,10 @@ function updatePositions() {
     //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
     //console.log('latestKnownScrollY: ' + latestKnownScrollY);
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+    console.log('document.body.scrollTop: ' + document.body.scrollTop);
+    console.log('phase: ' + phase);
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    console.log('items[i].style.left: ' + items[i].style.left);
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
