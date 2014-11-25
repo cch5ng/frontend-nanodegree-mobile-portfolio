@@ -544,9 +544,9 @@ function requestTick() {
 function updatePositions() {
   var currentScrollY = latestKnownScrollY;
   //console.log('currentScrollY: ' + currentScrollY);
-  if (currentScrollY > 0) {
-    ticking = false;
-  }
+  //if (currentScrollY > 0) {
+  //  ticking = false;
+  //}
   console.log('ticking: ' + ticking);
   frame++;
   window.performance.mark("mark_start_frame");
