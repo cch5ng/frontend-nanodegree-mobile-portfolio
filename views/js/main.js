@@ -529,12 +529,14 @@ var ticking = false,
 
 function onScroll() {
   latestKnownScrollY = window.scrollY;
+  //console.log('latestKnownScrollY: ' + latestKnownScrollY);
   requestTick();
 }
 
 function requestTick() {
   if (!ticking) {
     requestAnimationFrame(updatePositions);
+    console.log('updatePositions got called onscroll');
   }
   ticking = true;
 }
@@ -542,16 +544,23 @@ function requestTick() {
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   var currentScrollY = latestKnownScrollY;
+  //console.log('currentScrollY: ' + currentScrollY);
+  //if (currentScrollY > 0) {
   ticking = false;
+  //}
+  //console.log('ticking: ' + ticking);
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    if (items[i].scrollTop >= currentScrollY) {
-      var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
-      items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    }
+    //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
+    //console.log('latestKnownScrollY: ' + latestKnownScrollY);
+    var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
+    //console.log('document.body.scrollTop: ' + document.body.scrollTop);
+    console.log('phase: ' + phase);
+    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    console.log('items[i].style.left: ' + items[i].style.left);
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
