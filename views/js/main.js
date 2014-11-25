@@ -525,9 +525,10 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 var ticking = false,
-  latestKnownScrollY = window.scrollY;
+  latestKnownScrollY = 0;
 
 function onScroll() {
+  latestKnownScrollY = window.scrollY;
   requestTick();
 }
 
@@ -547,11 +548,9 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  latestKnownScrollY = window.scrollY;
-
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    if (items[i].scrollTop >= latestKnownScrollY) {
+    if (items[i].scrollTop > currentScrollY) {
       console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
       console.log('latestKnownScrollY: ' + latestKnownScrollY);
       var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
