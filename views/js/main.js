@@ -535,10 +535,10 @@ function onScroll() {
 
 function requestTick() {
   if (!ticking) {
-    updatePositions();
+    requestAnimationFrame(updatePositions);
     console.log('updatePositions got called onscroll');
   }
-  //ticking = true;
+  ticking = true;
 }
 
 // Moves the sliding background pizzas based on scroll position
@@ -546,7 +546,7 @@ function updatePositions() {
   var currentScrollY = latestKnownScrollY;
   //console.log('currentScrollY: ' + currentScrollY);
   //if (currentScrollY > 0) {
-  //  ticking = false;
+  ticking = false;
   //}
   //console.log('ticking: ' + ticking);
   frame++;
