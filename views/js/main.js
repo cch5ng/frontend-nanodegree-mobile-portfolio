@@ -529,7 +529,7 @@ var ticking = false,
 
 function onScroll() {
   latestKnownScrollY = window.scrollY;
-  console.log('latestKnownScrollY: ' + latestKnownScrollY);
+  //console.log('latestKnownScrollY: ' + latestKnownScrollY);
   requestTick();
 }
 
@@ -543,17 +543,18 @@ function requestTick() {
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   var currentScrollY = latestKnownScrollY;
-  console.log('currentScrollY: ' + currentScrollY);
+  //console.log('currentScrollY: ' + currentScrollY);
   if (currentScrollY > 0) {
     ticking = false;
   }
+  console.log('ticking: ' + ticking);
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
-    console.log('latestKnownScrollY: ' + latestKnownScrollY);
+    //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
+    //console.log('latestKnownScrollY: ' + latestKnownScrollY);
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
