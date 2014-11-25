@@ -536,6 +536,7 @@ function onScroll() {
 function requestTick() {
   if (!ticking) {
     updatePositions();
+    console.log('updatePositions got called onscroll');
   }
   //ticking = true;
 }
@@ -547,7 +548,7 @@ function updatePositions() {
   //if (currentScrollY > 0) {
   //  ticking = false;
   //}
-  console.log('ticking: ' + ticking);
+  //console.log('ticking: ' + ticking);
   frame++;
   window.performance.mark("mark_start_frame");
 
