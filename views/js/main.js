@@ -540,8 +540,10 @@ function requestTick() {
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
-  ticking = false;
   var currentScrollY = latestKnownScrollY;
+  if (currentScrollY > 0) {
+    ticking = false;
+  }
   frame++;
   window.performance.mark("mark_start_frame");
 
