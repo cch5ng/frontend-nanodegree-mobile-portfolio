@@ -552,9 +552,9 @@ function updatePositions() {
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    if (items[i].scrollTop >= currentScrollY) {
-      //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
-      //console.log('latestKnownScrollY: ' + latestKnownScrollY);
+    if (!ticking) {
+      console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
+      console.log('latestKnownScrollY: ' + latestKnownScrollY);
       var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
