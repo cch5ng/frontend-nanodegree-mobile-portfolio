@@ -555,7 +555,8 @@ function updatePositions() {
 
     console.log('items[' + i + '].style.top: ' + items[i].style.top);
     console.log('currentScrollY: ' + currentScrollY);
-    console.log('window.innerHeight: ' + window.innerHeight);
+    //console.log('window.innerHeight: ' + window.innerHeight);
+    console.log('condition for item top under current scroll: ' + items[i].style.top >= currentScrollY);
     //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
 
     if (items[i].style.top >= currentScrollY && items[i].style.top < currentScrollY + window.innerHeight) { //- items[i].style.height
