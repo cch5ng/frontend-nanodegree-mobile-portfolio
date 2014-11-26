@@ -557,17 +557,17 @@ function updatePositions() {
     var pizzaTopInScrollView = false;
     var pizzaBottomInScrollView = false;
 
-    pizzaTopInScrollView = numTop >= currentScrollY;
-    pizzaBottomInScrollView = numTop < currentScrollY + window.innerHeight;
+    pizzaTopInScrollView = numTop >= currentScrollY; //check if top of the bgd pizza is in the scroll view
+    pizzaBottomInScrollView = numTop < currentScrollY + window.innerHeight; //check if bottom of bgd pizza is in the scroll view
 
-    console.log('items[' + i + '].style.top: ' + items[i].style.top);
-    console.log('currentScrollY: ' + currentScrollY);
+    //console.log('items[' + i + '].style.top: ' + items[i].style.top);
+    //console.log('currentScrollY: ' + currentScrollY);
     //console.log('window.innerHeight: ' + window.innerHeight);
-    console.log('pizzaTopInScrollView: ' + pizzaTopInScrollView);
-    console.log('pizzaBottomInScrollView: ' + pizzaBottomInScrollView);
+    //console.log('pizzaTopInScrollView: ' + pizzaTopInScrollView);
+    //console.log('pizzaBottomInScrollView: ' + pizzaBottomInScrollView);
     //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
     //in following condition, need to convert the string for item's style.top var to numeric value in order to do comparison
-    if (parseInt(items[i].style.top.slice(0, items[i].style.top.length - 2)) >= currentScrollY && parseInt(items[i].style.top.slice(0, items[i].style.top.length - 2)) < currentScrollY + window.innerHeight) {
+    if (pizzaTopInScrollView && pizzaBottomInScrollView) {
       var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
