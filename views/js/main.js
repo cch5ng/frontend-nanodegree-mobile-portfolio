@@ -552,11 +552,19 @@ function updatePositions() {
   for (var i = 0; i < items.length; i++) {
     //TODO - add condition where item's scrolltop must be <= currentScrollY - elem's style.top
     //but the item's scrolltop + style.height should also be bounded by currentScrollY + window.innerHeight
+    var strTop = items[i].style.top.slice(0, items[i].style.top.length - 2);
+    var numTop = parseInt(strTop);
+    var pizzaTopInScrollView = false;
+    var pizzaBottomInScrollView = false;
+
+    pizzaTopInScrollView = numTop >= currentScrollY;
+    pizzaBottomInScrollView = numTop < currentScrollY + window.innerHeight;
 
     console.log('items[' + i + '].style.top: ' + items[i].style.top);
     console.log('currentScrollY: ' + currentScrollY);
     //console.log('window.innerHeight: ' + window.innerHeight);
-    console.log('condition for item top under current scroll: ' + items[i].style.top >= currentScrollY);
+    console.log('pizzaTopInScrollView: ' + pizzaTopInScrollView);
+    console.log('pizzaBottomInScrollView: ' + pizzaBottomInScrollView);
     //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
     //in following condition, need to convert the string for item's style.top var to numeric value in order to do comparison
     if (parseInt(items[i].style.top.slice(0, items[i].style.top.length - 2)) >= currentScrollY && parseInt(items[i].style.top.slice(0, items[i].style.top.length - 2)) < currentScrollY + window.innerHeight) {
