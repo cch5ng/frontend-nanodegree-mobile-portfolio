@@ -555,9 +555,10 @@ function updatePositions() {
 
     console.log('items[' + i + '].style.top: ' + items[i].style.top);
     console.log('currentScrollY: ' + currentScrollY);
+    console.log('window.innerHeight: ' + window.innerHeight);
     //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
 
-    if (items[i].style.top >= currentScrollY && items[i].style.top < currentScrollY + window.innerHeight - items[i].style.height) {
+    if (items[i].style.top >= currentScrollY && items[i].style.top < currentScrollY + window.innerHeight) { //- items[i].style.height
       var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
