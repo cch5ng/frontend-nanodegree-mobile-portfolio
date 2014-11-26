@@ -554,9 +554,9 @@ function updatePositions() {
     //but the item's scrolltop + style.height should also be bounded by currentScrollY + window.innerHeight
 
     console.log('currentScrollY: ' + currentScrollY);
-    console.log('items[i].scrollTop: ' + items[i].scrollTop);
+    console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
 
-    if (items[i].scrollTop >= currentScrollY && items[i].scrollTop < currentScrollY + window.innerHeight - items[i].style.height) {
+    if (items[i].style.top >= currentScrollY && items[i].style.top < currentScrollY + window.innerHeight - items[i].style.height) {
       var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
