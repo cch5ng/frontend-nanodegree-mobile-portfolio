@@ -558,8 +558,8 @@ function updatePositions() {
     //console.log('window.innerHeight: ' + window.innerHeight);
     console.log('condition for item top under current scroll: ' + items[i].style.top >= currentScrollY);
     //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
-
-    if (items[i].style.top >= currentScrollY && items[i].style.top < currentScrollY + window.innerHeight) { //- items[i].style.height
+    //in following condition, need to convert the string for item's style.top var to numeric value in order to do comparison
+    if (parseInt(items[i].style.top.slice(0, items[i].style.top.length - 2)) >= currentScrollY && parseInt(items[i].style.top.slice(0, items[i].style.top.length - 2)) < currentScrollY + window.innerHeight) {
       var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
