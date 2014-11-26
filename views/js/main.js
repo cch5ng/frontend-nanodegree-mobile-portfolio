@@ -544,23 +544,18 @@ function requestTick() {
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   var currentScrollY = latestKnownScrollY;
-  //console.log('currentScrollY: ' + currentScrollY);
-  //if (currentScrollY > 0) {
   ticking = false;
-  //}
-  //console.log('ticking: ' + ticking);
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
-    //console.log('latestKnownScrollY: ' + latestKnownScrollY);
-    var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
-    //console.log('document.body.scrollTop: ' + document.body.scrollTop);
-    console.log('phase: ' + phase);
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    console.log('items[i].style.left: ' + items[i].style.left);
+    //TODO - add condition where item's scrolltop must be <= currentScrollY - elem's style.top
+    //but the item's scrolltop + style.height should also be bounded by currentScrollY + window.innerHeight
+    if (items[i].scrollTop >= currentScrollY - items[i].style.top && items[i].scrollTop < currentScrollY + window.innerHeight - items[i].style.height) {
+      var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
+      items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    }
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
