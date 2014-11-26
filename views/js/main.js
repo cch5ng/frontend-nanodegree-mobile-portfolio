@@ -552,7 +552,11 @@ function updatePositions() {
   for (var i = 0; i < items.length; i++) {
     //TODO - add condition where item's scrolltop must be <= currentScrollY - elem's style.top
     //but the item's scrolltop + style.height should also be bounded by currentScrollY + window.innerHeight
-    if (items[i].scrollTop >= currentScrollY - items[i].style.top && items[i].scrollTop < currentScrollY + window.innerHeight - items[i].style.height) {
+
+    console.log('currentScrollY: ' + currentScrollY);
+    console.log('items[i].scrollTop: ' + items[i].scrollTop);
+
+    if (items[i].scrollTop >= currentScrollY && items[i].scrollTop < currentScrollY + window.innerHeight - items[i].style.height) {
       var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
       items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     }
