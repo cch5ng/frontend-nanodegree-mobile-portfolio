@@ -410,20 +410,6 @@ var pizzaElementGenerator = function(i) {
   return pizzaContainer;
 }
 
-window.performance.mark("mark_start_generating"); // collect timing data
-
-// This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
-  pizzasDiv.appendChild(pizzaElementGenerator(i));
-}
-
-// User Timing API again. These measurements tell you how long it took to generate the initial pizzas
-window.performance.mark("mark_end_generating");
-window.performance.measure("measure_pizza_generation", "mark_start_generating", "mark_end_generating");
-var timeToGenerate = window.performance.getEntriesByName("measure_pizza_generation");
-console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "ms");
-
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) { 
   window.performance.mark("mark_start_resize");   // User Timing API function
@@ -525,18 +511,47 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 var ticking = false,
-  latestKnownScrollY = 0;
+  latestKnownScrollY = 0,
+  randomPizzasDrawn = false;
 
 function onScroll() {
   latestKnownScrollY = window.scrollY;
   //console.log('latestKnownScrollY: ' + latestKnownScrollY);
   requestTick();
+  if (!randomPizzasDrawn) {
+    drawRandomPizzas();
+  }
+}
+
+/* not sure if this is necessary b/c only need to draw once
+function requestRandomPizzaDraw() {
+  if (!randomPizzasDrawn) {
+    requestAnimationFrame(drawRandomPizzas);
+  }
+}
+*/
+
+function drawRandomPizzas() {
+  window.performance.mark("mark_start_generating"); // collect timing data
+
+  // This for-loop actually creates and appends all of the pizzas when the page loads
+  for (var i = 2; i < 100; i++) {
+    var pizzasDiv = document.getElementById("randomPizzas");
+    pizzasDiv.appendChild(pizzaElementGenerator(i));
+  }
+
+  // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
+  window.performance.mark("mark_end_generating");
+  window.performance.measure("measure_pizza_generation", "mark_start_generating", "mark_end_generating");
+  var timeToGenerate = window.performance.getEntriesByName("measure_pizza_generation");
+  randomPizzasDrawn = true;
+  console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "ms");
 }
 
 function requestTick() {
   if (!ticking) {
     requestAnimationFrame(updatePositions);
-    console.log('updatePositions got called onscroll');
+    //console.log('updatePositions got called onscroll');
   }
   ticking = true;
 }
