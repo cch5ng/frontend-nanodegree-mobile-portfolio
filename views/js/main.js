@@ -502,6 +502,8 @@ var ticking = false,
   latestKnownScrollY = 0,
   randomPizzasDrawn = false;
 
+//REV NOTE - 1 separating scroll event from the repaint event for background pizzas; 2 defering generation of random pizzas (foreground) to the 
+//first scroll event => this should speed up initial page load for contents above the fold
 function onScroll() {
   latestKnownScrollY = window.scrollY;
   //console.log('latestKnownScrollY: ' + latestKnownScrollY);
@@ -510,14 +512,6 @@ function onScroll() {
     drawRandomPizzas();
   }
 }
-
-/* not sure if this is necessary b/c only need to draw once
-function requestRandomPizzaDraw() {
-  if (!randomPizzasDrawn) {
-    requestAnimationFrame(drawRandomPizzas);
-  }
-}
-*/
 
 function drawRandomPizzas() {
   window.performance.mark("mark_start_generating"); // collect timing data
