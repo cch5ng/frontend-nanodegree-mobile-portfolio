@@ -3,6 +3,7 @@
 <head>
   <title>Web Performance Analysis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" >
+  <!-- REV NOTE -->
   <style>
     * {
       -webkit-box-sizing: border-box;
@@ -54,7 +55,7 @@
     }
 
   </style>
-  <!-- bootstrap -->
+  <!-- REV NOTE bootstrap moved inline to remove render blocking CSS-->
   <style>
 /*!
  * Bootstrap v3.2.0 (http://getbootstrap.com)
@@ -98,7 +99,11 @@
     </div>
     <div id="callToAction" class="row">
       <div class="col-md-4">
-        <img src="images/pizzeria.jpg" alt="pizza" class="img-responsive"/>
+        <picture>
+          <source media="(max-width: 640px)" srcset="images/pizzeria_sm.jpg"/>
+          <img src="images/pizzeria.jpg" alt="pizza" class="img-responsive"/>
+        </picture>
+
         <!--<img src="images/pizzeria.jpg" class="img-responsive">--> <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
       </div>
       <div class="col-md-8">
