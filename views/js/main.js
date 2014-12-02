@@ -590,7 +590,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
   for (var i = 0; i < 200; i++) {
     var elem = document.createElement('img');
-    elem.className = 'mover';
+    elem.className = 'mover img-responsive';
     elem.src = "images/pizza.png";
     //elem.style.height = "100px";
     //elem.style.width = "73.333px";
