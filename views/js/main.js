@@ -376,8 +376,9 @@ var pizzaElementGenerator = function(i) {
   pizzaDescriptionContainer = document.createElement("div");
 
   pizzaContainer.classList.add("randomPizzaContainer");
-  pizzaContainer.style.width = "33.33%";
-  pizzaContainer.style.height = "325px";
+  pizzaContainer.classList.add("md");
+  //pizzaContainer.style.width = "33.33%";
+  //pizzaContainer.style.height = "325px";
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-md-6");
 
@@ -435,40 +436,52 @@ var resizePizzas = function(size) {
 
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
-    var oldwidth = elem.offsetWidth;
-    var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-    var oldsize = oldwidth / windowwidth;
+    //var oldwidth = elem.offsetWidth;
+    //var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
+    //var oldsize = oldwidth / windowwidth;
 
     // TODO: change to 3 sizes? no more xl?
     // Changes the slider value to a percent width
     function sizeSwitcher (size) { //11 20 14 commented out determineDx to just use percent width values
       switch(size) {
         case "1":
-          return 0.25;
+          return 'sm';
+          //return 0.25;
         case "2":
-          return 0.3333;
+          return 'md';
+          //return 0.3333;
         case "3":
-          return 0.5;
+          return 'lg';
+          //return 0.5;
         default:
           console.log("bug in sizeSwitcher");
       }
     }
 
     var newsize = sizeSwitcher(size);
-    var dx = (newsize - oldsize) * windowwidth;
+    //var dx = (newsize - oldsize) * windowwidth;
 
-    return dx;
+    return newsize;
   }
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
     //moved dx and newwidth calculations outside of the for loop b/c they only need to be performed once for the entire page
-    var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
-    var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
+    var classSize = determineDx(document.querySelector(".randomPizzaContainer"), size);
+    //var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
+    //var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
-      //var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      //var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+      //disable the current size
+      if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('sm')) { //sm
+        document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('sm');
+      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('md')) { //md
+        document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('md');
+      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg')) { //lg
+        document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg');
+      }
+      document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle(classSize); //enable the new size
+
+      //document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
 
@@ -598,7 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.src = "images/pizza.png";
     elem.style.height = (window.screen.width / 12).toString() + 'px'; //14.4
     elem.style.width = (window.screen.width / 16.44).toString() + 'px'; //19.9
-    console.log('elem.style.height: ' + elem.style.height);
+    //console.log('elem.style.height: ' + elem.style.height);
     //elem.style.height = "100px";
     //elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
