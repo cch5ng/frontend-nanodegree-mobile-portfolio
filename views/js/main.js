@@ -532,7 +532,7 @@ function drawRandomPizzas() {
 
   // This for-loop actually creates and appends all of the pizzas when the page loads
   //for (var i = 2; i < 100; i++) { //original
-  for (var i = 2; i < 18; i++) { //trying to render only what would show when the pizza slider control displays
+  for (var i = 2; i < 20; i++) { //trying to render only what would show when the pizza slider control displays
     var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
   }
@@ -615,8 +615,8 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.className = 'mover';
     elem.src = "images/pizza.png";
 //TODO 12 04 14 better to set height, width, top using class than directly
-    //elem.style.height = (screenWidth / 12).toString() + 'px'; //14.4
-    //elem.style.width = (screenWidth / 16.44).toString() + 'px'; //19.9
+    elem.style.height = (screenWidth / 12).toString() + 'px'; //14.4
+    elem.style.width = (screenWidth / 16.44).toString() + 'px'; //19.9
     //console.log('elem.style.height: ' + elem.style.height);
     //elem.style.height = "100px";
     //elem.style.width = "73.333px";
