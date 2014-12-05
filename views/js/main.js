@@ -615,8 +615,8 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.className = 'mover';
     elem.src = "images/pizza.png";
 //TODO 12 04 14 better to set height, width, top using class than directly
-    elem.style.height = (screenWidth / 12).toString() + 'px'; //14.4
-    elem.style.width = (screenWidth / 16.44).toString() + 'px'; //19.9
+    //elem.style.height = (screenWidth / 12).toString() + 'px'; //14.4
+    //elem.style.width = (screenWidth / 16.44).toString() + 'px'; //19.9
     //console.log('elem.style.height: ' + elem.style.height);
     //elem.style.height = "100px";
     //elem.style.width = "73.333px";
