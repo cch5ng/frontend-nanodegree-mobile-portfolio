@@ -380,6 +380,7 @@ var pizzaElementGenerator = function(i) {
   //pizzaContainer.style.width = "33.33%";
   //pizzaContainer.style.height = "325px";
   pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
+  pizzaImageContainer.classList.add("col-sm-5");
   pizzaImageContainer.classList.add("col-md-6");
 
   pizzaImageContainer.appendChild(pizzaPicture);
@@ -397,8 +398,8 @@ var pizzaElementGenerator = function(i) {
   pizzaPicture.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
 
+  pizzaDescriptionContainer.classList.add("col-sm-7");
   pizzaDescriptionContainer.classList.add("col-md-6");
-
   pizzaName = document.createElement("h4");
   pizzaName.innerHTML = randomName();
   pizzaDescriptionContainer.appendChild(pizzaName);
@@ -530,7 +531,8 @@ function drawRandomPizzas() {
   window.performance.mark("mark_start_generating"); // collect timing data
 
   // This for-loop actually creates and appends all of the pizzas when the page loads
-  for (var i = 2; i < 100; i++) {
+  //for (var i = 2; i < 100; i++) { //original
+  for (var i = 2; i < 18; i++) { //trying to render only what would show when the pizza slider control displays
     var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
   }
@@ -601,16 +603,20 @@ window.addEventListener('scroll', onScroll);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   console.log('window.screen.width: ' + window.screen.width);
-  var s = window.screen.width / 6;
+  var screenWidth = window.screen.width;
+  var s = screenWidth / 6;
   //var imageCorrection = 1 / window.screen.width;
   //var imageWidthCorrection = 73.333 / window.screen.width;
   //var s = 256;
-  for (var i = 0; i < 200; i++) {
+
+  //for (var i = 0; i < 200; i++) { //original count of background pizzas generated onload
+  for (var i = 0; i < 88; i++) { //decreased initial count of bgd pizzas generated onload
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
-    elem.style.height = (window.screen.width / 12).toString() + 'px'; //14.4
-    elem.style.width = (window.screen.width / 16.44).toString() + 'px'; //19.9
+//TODO 12 04 14 better to set height, width, top using class than directly
+    //elem.style.height = (screenWidth / 12).toString() + 'px'; //14.4
+    //elem.style.width = (screenWidth / 16.44).toString() + 'px'; //19.9
     //console.log('elem.style.height: ' + elem.style.height);
     //elem.style.height = "100px";
     //elem.style.width = "73.333px";
