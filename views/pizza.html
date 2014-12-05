@@ -37,12 +37,14 @@
       position: fixed;
       width: 256px;
       z-index: -1;
+      height: 100px; /* REV NOTE moved height and width into the class *//*80px;*/
+      width: 73px; /*58.4px;*/
     }
 
     .randomPizzaContainer {
       float: left;
       display: flex;
-      border: solid 1px black;
+      /*border: solid 1px black;*/
     }
 
     .randomPizzaContainer:after {
@@ -89,29 +91,48 @@
       height: 340px;
     }
 
-    @media (max-width: 480px) {
-      body {
-        font-size: 13px;
+    @media (min-width: 481px) and (max-width: 760px) {
+      .lg {
+        height: 165px;
       }
 
-/*      .lg, .md, .sm {
-        width: 50%;
+      .md {
+        width: 42%;
       }
-*/
+
+      .sm {
+        width: 34%;
+      }
+
+/*      .mover {
+        height: 60px;
+        width: 43.8px;
+      }*/
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 14px;
+      }
+
       .lg {
         width: 100%;
       }
 
       .md {
         width: 75%;
-        height: 215px;
+        height: 100%;
       }
 
       .sm {
-        width: 50%;
-        height: 300px;
+        width: 65%;
+        height: 100%;
       }
 
+/*      .mover {
+        height: 40px;
+        width: 29.2px;
+      }*/
     }
 
   </style>
@@ -221,14 +242,14 @@
         </div>
         <div id="randomPizzas" class="row">
           <div id="pizza0" class="randomPizzaContainer md" > <!-- style="width:33.33%;" -->
-            <div class="col-xs-3 col-md-6"> <!--  -->
+            <div class="col-sm-5 col-md-6"> <!--  -->
               <picture>
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
                 <img src="images/pizza.png" class="img-responsive">
               </picture>
             </div>
-            <div class="col-xs-9 col-md-6">
+            <div class="col-sm-7 col-md-6">
               <h4>The Udacity Special</h4>
               <ul>
                 <li>Turkey</li>
@@ -242,14 +263,14 @@
             </div>
           </div>
           <div id="pizza1" class="randomPizzaContainer md"> <!-- style="width:33.33%;" -->
-            <div class="col-xs-3 col-md-6" >
+            <div class="col-sm-5 col-md-6" >
               <picture>
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
                 <img src="images/pizza.png" class="img-responsive">
               </picture>
             </div>
-            <div class="col-xs-9 col-md-6">
+            <div class="col-sm-7 col-md-6">
               <h4>The Cameron Special</h4>
               <ul>
                 <li>Chicken</li>
