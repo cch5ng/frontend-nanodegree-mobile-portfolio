@@ -18,6 +18,8 @@ cameron *at* udacity *dot* com
 
 // As you may have realized, this website randomly generates pizzas.
 // Here are arrays of all possible pizza ingredients.
+var scrnHeight = 0;
+
 var pizzaIngredients = {};
 pizzaIngredients.meats = [
   "Pepperoni",
@@ -513,8 +515,9 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 var ticking = false,
+  ticking2 = false,
   latestKnownScrollY = 0,
-  randomPizzasDrawn = false;
+  firstRandomPizzasDrawn = false;
 
 //REV NOTE - 1 separating scroll event from the repaint event for background pizzas; 2 defering generation of random pizzas (foreground) to the 
 //first scroll event => this should speed up initial page load for contents above the fold
@@ -522,8 +525,10 @@ function onScroll() {
   latestKnownScrollY = window.scrollY;
   //console.log('latestKnownScrollY: ' + latestKnownScrollY);
   requestTick();
-  if (!randomPizzasDrawn) {
+  if (!firstRandomPizzasDrawn) {
     drawRandomPizzas();
+  } else {
+    requestTick2();
   }
 }
 
@@ -536,12 +541,12 @@ function drawRandomPizzas() {
     var pizzasDiv = document.getElementById("randomPizzas");
     pizzasDiv.appendChild(pizzaElementGenerator(i));
   }
+  firstRandomPizzasDrawn = true;
 
   // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
   window.performance.mark("mark_end_generating");
   window.performance.measure("measure_pizza_generation", "mark_start_generating", "mark_end_generating");
   var timeToGenerate = window.performance.getEntriesByName("measure_pizza_generation");
-  randomPizzasDrawn = true;
   console.log("Time to generate pizzas on load: " + timeToGenerate[0].duration + "ms");
 }
 
@@ -553,6 +558,14 @@ function requestTick() {
   ticking = true;
 }
 
+function requestTick2() {
+  if (!ticking2) {
+    requestAnimationFrame(drawRemainingRandomPizzas);
+    console.log('called drawRemainingRandomPizzas');
+  }
+  ticking2 = true;
+}
+
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   var currentScrollY = latestKnownScrollY;
@@ -562,28 +575,8 @@ function updatePositions() {
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    //TODO - add condition where item's scrolltop must be <= currentScrollY - elem's style.top
-    //but the item's scrolltop + style.height should also be bounded by currentScrollY + window.innerHeight
-    //var strTop = items[i].style.top.slice(0, items[i].style.top.length - 2);
-    //var numTop = parseInt(strTop);
-    //var pizzaTopInScrollView = false;
-    //var pizzaBottomInScrollView = false;
-
-    //pizzaTopInScrollView = numTop >= currentScrollY; //check if top of the bgd pizza is in the scroll view
-    //pizzaBottomInScrollView = numTop < currentScrollY + window.innerHeight; //check if bottom of bgd pizza is in the scroll view
-
-    //console.log('items[' + i + '].style.top: ' + items[i].style.top);
-    //console.log('currentScrollY: ' + currentScrollY);
-    //console.log('window.innerHeight: ' + window.innerHeight);
-    //console.log('pizzaTopInScrollView: ' + pizzaTopInScrollView);
-    //console.log('pizzaBottomInScrollView: ' + pizzaBottomInScrollView);
-    //console.log('items[' + i + '].scrollTop: ' + items[i].scrollTop);
-    //in following condition, need to convert the string for item's style.top var to numeric value in order to do comparison
-    
-    //if (pizzaTopInScrollView && pizzaBottomInScrollView) {
     var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); //document.body.scrollTop
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    //}
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -596,13 +589,35 @@ function updatePositions() {
   }
 }
 
+function drawRemainingRandomPizzas() {
+  var currentScrollY = latestKnownScrollY;
+  console.log('currentScrollY: ' + currentScrollY);
+  var numRandomPizzas = document.querySelectorAll(".randomPizzaContainer").length;
+  ticking2 = false;
+  if (numRandomPizzas < 100) {
+    //TODO this is test to check how many random pizzas need to display in the current screen view
+    //console.log('top of the last random pizza: ' + document.querySelectorAll(".randomPizzaContainer")[numRandomPizzas - 1].scrollTop);
+    console.log('scrnHeight: ' + scrnHeight);
+    console.log('numRandomPizzas: ' + numRandomPizzas);
+
+    if (currentScrollY > (scrnHeight - numRandomPizzas / 4 * 280)) { //rough estimate for min row height based on 3 pizza sizes
+      for (var i = 0; i < 16; i++) {
+        var pizzasDiv = document.getElementById("randomPizzas");
+        pizzasDiv.appendChild(pizzaElementGenerator(i));
+      }
+      //console.log('top of the last random pizza: ' + document.querySelectorAll(".randomPizzaContainer")[numRandomPizzas - 1].scrollTop);
+    }
+  }
+}
+
 // runs updatePositions on scroll
 window.addEventListener('scroll', onScroll);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
+  scrnHeight = window.screen.height;
   var cols = 8;
-  console.log('window.screen.width: ' + window.screen.width);
+  //console.log('window.screen.width: ' + window.screen.width);
   var screenWidth = window.screen.width;
   var s = screenWidth / 6;
   //var imageCorrection = 1 / window.screen.width;
@@ -610,18 +625,14 @@ document.addEventListener('DOMContentLoaded', function() {
   //var s = 256;
 
   //for (var i = 0; i < 200; i++) { //original count of background pizzas generated onload
-  for (var i = 0; i < 88; i++) { //decreased initial count of bgd pizzas generated onload
+  for (var i = 0; i < 88; i++) { //REV NOTE decreased initial count of bgd pizzas generated onload
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
-//TODO 12 04 14 better to set height, width, top using class than directly
+//REV NOTE set height, width using existing mover class in CSS
     //elem.style.height = (screenWidth / 12).toString() + 'px'; //14.4
     //elem.style.width = (screenWidth / 16.44).toString() + 'px'; //19.9
-    //console.log('elem.style.height: ' + elem.style.height);
-    //elem.style.height = "100px";
-    //elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
-    //console.log(elem.basicLeft);
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
