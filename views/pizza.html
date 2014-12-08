@@ -172,7 +172,7 @@
         <!-- REV NOTE added responsive image tag <picture> to speed up download of pizzeria image on mobile devices-->
         <picture>
           <source media="(max-width: 640px)" srcset="images/pizzeria_sm.jpg"/>
-          <img src="images/pizzeria.jpg" alt="pizza" class="img-responsive"/>
+          <img src="images/pizzeria.jpg" alt="pizzeria" class="img-responsive"/>
         </picture>
 
         <!--<img src="images/pizzeria.jpg" class="img-responsive">--> <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
@@ -246,7 +246,7 @@
               <picture>
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
-                <img src="images/pizza.png" class="img-responsive">
+                <img src="images/pizza.png" alt="pizza" class="img-responsive">
               </picture>
             </div>
             <div class="col-sm-7 col-md-6">
@@ -267,7 +267,7 @@
               <picture>
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
-                <img src="images/pizza.png" class="img-responsive">
+                <img src="images/pizza.png" alt="pizza" class="img-responsive">
               </picture>
             </div>
             <div class="col-sm-7 col-md-6">
@@ -284,8 +284,42 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
+  <script> 
+  /*REV NOTE moved updatePositions() and DOMContentLoaded listener to html; this allowed setting main.js to async
+      but it resulted in having duplication of updatePositions() also in main.js*/
+    function updatePositions() {
+      var items = document.querySelectorAll('.mover');
+      for (var i = 0; i < items.length; i++) {
+        //changed the scrollY or scrollTop lookup to static 0 value => avoided syncronous layout
+        var phase = Math.sin((0 / 1250) + (i % 5));
+        items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+      }
+    }
 
-  <script type="text/javascript" src="js/main.js"></script>
+    // Generates the sliding pizzas when the page loads.
+    document.addEventListener('DOMContentLoaded', function() {
+      var cols = 6;
+      var screenWidth = window.screen.width;
+      var s = screenWidth / 6;
+      //var imageCorrection = 1 / window.screen.width;
+      //var imageWidthCorrection = 73.333 / window.screen.width;
+      //var s = 256;
+
+      for (var i = 0; i < 88; i++) { //REV NOTE decreased initial count (200) of bgd pizzas generated onload
+        var elem = document.createElement('img');
+        //REV NOTE used classList instead of classname; set height, width using existing mover class in CSS
+        elem.classList.add('mover');
+        elem.src = "images/pizza.png";
+        elem.basicLeft = (i % cols) * s;
+        elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        document.querySelector("#movingPizzas1").appendChild(elem);
+      }
+      //requestTick();
+      updatePositions();
+    });
+  </script>
+  <!--REV NOTE set main.js as async b/c included functionality can happen after the content above the fold is loaded-->
+  <script async type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
