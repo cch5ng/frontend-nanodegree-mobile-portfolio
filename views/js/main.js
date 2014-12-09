@@ -519,7 +519,10 @@ var ticking = false,
   latestKnownScrollY = 0,
   ticking2 = false,
   //firstRandomPizzasDrawn = false,
-  lastRandomPizzaDrawn = false;
+  lastRandomPizzaDrawn = false,
+  windowHeight = window.innerHeight,
+  //pizzaGenOffset = document.querySelector('#pizzaGenerator').offsetTop,
+  pizzaHeight = document.querySelector('.randomPizzaContainer').clientHeight;
 
 //REV NOTE - 1 separating scroll event from the repaint event for background pizzas; 2 defering generation of random pizzas (foreground) to the 
 //first scroll event => this should speed up initial page load for contents above the fold
@@ -542,7 +545,7 @@ function drawRandomPizzas() {
     var docViewTop = currentScrollY;
     //console.log('docViewTop: ' + docViewTop)
   
-    var docViewBottom = docViewTop + window.innerHeight;
+    var docViewBottom = docViewTop + windowHeight;
     //console.log('docViewBottom: ' + docViewBottom)
 
     var allRandomPizzas = document.querySelectorAll(".randomPizzaContainer");
@@ -552,14 +555,14 @@ function drawRandomPizzas() {
     //console.log('pizzaGeneratorTop: ' + document.querySelector('#pizzaGenerator').offsetTop);
     //console.log('elemTop: ' + elemTop);
     //var elemTop = $(elem).offset().top;
-    var pizzaHeight = lastRandomPizza.clientHeight;
     var elemBottom = elemTop + pizzaHeight;
     //console.log('elemBottom: ' + elemBottom);
 
     //console.log('elem below docViewTop: ' + (elemTop >= docViewTop));
-    return ((docViewBottom + pizzaHeight <= elemBottom) && (elemTop >= docViewTop));
+    //return ((docViewBottom + pizzaHeight <= elemBottom) && (elemTop >= docViewTop));
+    return ((elemTop >= docViewBottom - pizzaHeight) && (elemBottom <= docViewBottom + pizzaHeight));
   }
-//console.log(isJustBelowScrolledView());
+  //console.log(isJustBelowScrolledView());
 
   window.performance.mark("mark_start_generating"); // collect timing data
   //var currentScrollY = latestKnownScrollY;
