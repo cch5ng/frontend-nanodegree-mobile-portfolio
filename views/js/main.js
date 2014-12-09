@@ -517,6 +517,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 var ticking = false,
   latestKnownScrollY = 0,
+  ticking2 = false,
   //firstRandomPizzasDrawn = false,
   lastRandomPizzaDrawn = false;
 
@@ -526,24 +527,56 @@ function onScroll() {
   latestKnownScrollY = window.scrollY;
   //console.log('latestKnownScrollY: ' + latestKnownScrollY);
   requestTick();
-  if (!lastRandomPizzaDrawn) {
-    drawRandomPizzas();
-  }
+  requestTick2();
+  //if (!lastRandomPizzaDrawn) {
+  //  drawRandomPizzas();
+  //}
 }
 
-function drawRandomPizzas() {
-  window.performance.mark("mark_start_generating"); // collect timing data
+//helper 
 
+function drawRandomPizzas() {
+  function isJustBelowScrolledView() {
+    var currentScrollY = latestKnownScrollY;
+    ticking2 = false;
+    var docViewTop = currentScrollY;
+    //console.log('docViewTop: ' + docViewTop)
+  
+    var docViewBottom = docViewTop + window.innerHeight;
+    //console.log('docViewBottom: ' + docViewBottom)
+
+    var allRandomPizzas = document.querySelectorAll(".randomPizzaContainer");
+    var lastRandomPizza = allRandomPizzas[allRandomPizzas.length - 1];
+    //var elemTop = lastRandomPizza.scrollTop;
+    var elemTop = lastRandomPizza.offsetTop + document.querySelector('#pizzaGenerator').offsetTop;
+    //console.log('pizzaGeneratorTop: ' + document.querySelector('#pizzaGenerator').offsetTop);
+    //console.log('elemTop: ' + elemTop);
+    //var elemTop = $(elem).offset().top;
+    var pizzaHeight = lastRandomPizza.clientHeight;
+    var elemBottom = elemTop + pizzaHeight;
+    //console.log('elemBottom: ' + elemBottom);
+
+    //console.log('elem below docViewTop: ' + (elemTop >= docViewTop));
+    return ((docViewBottom + pizzaHeight <= elemBottom) && (elemTop >= docViewTop));
+  }
+//console.log(isJustBelowScrolledView());
+
+  window.performance.mark("mark_start_generating"); // collect timing data
+  //var currentScrollY = latestKnownScrollY;
+  //get the style top value for the last drawn random pizza
+  //var lastPizzaTop = document.querySelectorAll("img[alt='pizza']")[document.querySelectorAll("img[alt='pizza']").length - 1].style.top;
+  //console.log('lastPizzaTop: ' + lastPizzaTop);
   // This for-loop actually creates and appends all of the pizzas when the page loads
   //for (var i = 2; i < 100; i++) { //original
-  for (var i = 0; i < 33; i++) { //trying to render only what would show when the pizza slider control displays
-    var pizzasDiv = document.getElementById("randomPizzas");
-    pizzasDiv.appendChild(pizzaElementGenerator(i));
+  if (!lastRandomPizzaDrawn && isJustBelowScrolledView()) {
+    for (var i = 0; i < 4; i++) { //trying to render only what would show when the pizza slider control displays
+      var pizzasDiv = document.getElementById("randomPizzas");
+      pizzasDiv.appendChild(pizzaElementGenerator(i));
+    }
   }
   if (document.querySelectorAll(".randomPizzaContainer").length >= 100) {
     lastRandomPizzaDrawn = true;
   }
-  //firstRandomPizzasDrawn = true;
 
   // User Timing API again. These measurements tell you how long it took to generate the initial pizzas
   window.performance.mark("mark_end_generating");
@@ -558,6 +591,13 @@ function requestTick() {
     //console.log('updatePositions got called onscroll');
   }
   ticking = true;
+}
+
+function requestTick2() {
+  if (!ticking2) {
+    requestAnimationFrame(drawRandomPizzas);
+  }
+  ticking2 = true;
 }
 
   // Moves the sliding background pizzas based on scroll position
