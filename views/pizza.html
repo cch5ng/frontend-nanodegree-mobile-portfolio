@@ -3,7 +3,7 @@
 <head>
   <title>Web Performance Analysis</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" >
-  <!-- REV NOTE -->
+  <!-- REV NOTE made the CSS inline-->
   <style>
     * {
       -webkit-box-sizing: border-box;
@@ -37,14 +37,13 @@
       position: fixed;
       width: 256px;
       z-index: -1;
-      height: 100px; /* REV NOTE moved height and width into the class *//*80px;*/
-      width: 73.333px; /*58.4px;*/
+      height: 100px; /* REV NOTE moved height and width into the class style to reduce CSS triggers in the javascript*/
+      width: 73.333px;
     }
 
     .randomPizzaContainer {
       float: left;
       display: flex;
-      /*border: solid 1px black;*/
     }
 
     .randomPizzaContainer:after {
@@ -58,7 +57,7 @@
     }
 
   </style>
-  <!-- REV NOTE bootstrap moved inline to remove render blocking CSS-->
+  <!-- REV NOTE moved bootstrap CSS inline to remove render blocking CSS-->
   <style>
 /*!
  * Bootstrap v3.2.0 (http://getbootstrap.com)
@@ -73,20 +72,15 @@
   <!-- REV NOTE updating the size of the random pizzas by assigning width value to style classes. this resolves the issue of forced synchronous layout -->
   <style>
     .lg {
-      /*transform: scale(1.25);
-      margin-top: 50px;*/
       width: 50%;
-      /*height: 500px;*/
     }
 
     .md {
-      /*transform: scale(1);*/
       width: 33%;
       height: 280px;
     }
 
     .sm {
-      /*transform: scale(0.75);*/
       width: 25%;
       height: 340px;
     }
@@ -172,15 +166,13 @@
         <!-- REV NOTE added responsive image tag <picture> to speed up download of pizzeria image on mobile devices-->
         <picture>
           <source media="(max-width: 640px)" srcset="images/pizzeria_sm.jpg"/>
-          <img src="images/pizzeria.jpg" alt="pizzeria" class="img-responsive"/>
+          <img src="images/pizzeria.jpg" alt="pizzeria" class="img-responsive"/><!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
         </picture>
-
-        <!--<img src="images/pizzeria.jpg" class="img-responsive">--> <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
       </div>
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-12">
-            <h2>We Have Hundreds of Pizza Recipes!</h2>            
+            <h2>We Have Hundreds of Pizza Recipes!</h2>
             <p>At Cam's Pizzeria, we know you want options. Pepperoni? Boring. Cheese? No way! Sausage? C'mon, let's get creative.</p>
 
             <p>We have every pizza ingredient imaginable in our kitchen because we know you take choice seriously. Take a look through our menu of hundreds of pizza options and we know that you'll find something you love.</p>
@@ -241,9 +233,9 @@
           </div>
         </div>
         <div id="randomPizzas" class="row">
-          <div id="pizza0" class="randomPizzaContainer md" > <!-- style="width:33.33%;" -->
-            <div class="col-sm-5 col-md-6"> <!--  -->
-              <picture>
+          <div id="pizza0" class="randomPizzaContainer md" > <!-- REV NOTE moved style width into the .md class definition -->
+            <div class="col-sm-5 col-md-6"> <!-- UX NOTE modified grid layout for small devices to avoid text getting cut off -->
+              <picture> <!-- REV NOTE added responsive image tag <picture> to speed up download of pizza image on mobile devices-->
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
                 <img src="images/pizza.png" alt="pizza" class="img-responsive">
@@ -262,7 +254,7 @@
               </ul>
             </div>
           </div>
-          <div id="pizza1" class="randomPizzaContainer md"> <!-- style="width:33.33%;" -->
+          <div id="pizza1" class="randomPizzaContainer md">
             <div class="col-sm-5 col-md-6" >
               <picture>
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
@@ -285,12 +277,12 @@
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
   <script> 
-  /*REV NOTE moved updatePositions() and DOMContentLoaded listener to html; this allowed setting main.js to async
+  /*REV NOTE moved updatePositions() and DOMContentLoaded listener from main.js to html ; this allowed setting main.js to async
       but it resulted in having duplication of updatePositions() also in main.js*/
     function updatePositions() {
       var items = document.querySelectorAll('.mover');
       for (var i = 0; i < items.length; i++) {
-        //changed the scrollY or scrollTop lookup to static 0 value => avoided syncronous layout
+        //REV NOTE changed the scrollY or scrollTop lookup to static 0 value => avoided syncronous layout
         var phase = Math.sin((0 / 1250) + (i % 5));
         items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
       }
@@ -301,9 +293,6 @@
       var cols = 6;
       var screenWidth = window.screen.width;
       var s = screenWidth / 6;
-      //var imageCorrection = 1 / window.screen.width;
-      //var imageWidthCorrection = 73.333 / window.screen.width;
-      //var s = 256;
 
       for (var i = 0; i < 88; i++) { //REV NOTE decreased initial count (200) of bgd pizzas generated onload
         var elem = document.createElement('img');
@@ -314,7 +303,6 @@
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
         document.querySelector("#movingPizzas1").appendChild(elem);
       }
-      //requestTick();
       updatePositions();
     });
   </script>
