@@ -1,3 +1,12 @@
+STEPS TO RUN APPLICATION
+
+1 I used an experimental html element, <picture> for responsive images. It requires configuration in Chrome and Firefox.
+  For Chrome v39, go to chrome://flags and enable the "experimental Web Platform features" flag.
+  For Firefox v33, set the about:config preference dom.image.picture.enable to true.
+  http://caniuse.com/#feat=picture
+
+==> original author's notes
+
 ## Website Performance Optimization portfolio project
 
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
