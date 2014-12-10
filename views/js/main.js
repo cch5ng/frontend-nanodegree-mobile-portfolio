@@ -371,17 +371,15 @@ var pizzaElementGenerator = function(i) {
 
   pizzaContainer  = document.createElement("div");
   pizzaImageContainer = document.createElement("div");
-  pizzaPicture = document.createElement("picture");
-  pizzaSource1 = document.createElement("source");
+  pizzaPicture = document.createElement("picture"); // REV NOTE added <picture> for responsive images
+  pizzaSource1 = document.createElement("source"); // REV NOTE added <source> for responsive images
   pizzaSource2 = document.createElement("source");
   pizzaImage = document.createElement("img");
   pizzaDescriptionContainer = document.createElement("div");
 
   pizzaContainer.classList.add("randomPizzaContainer");
-  pizzaContainer.classList.add("md");
-  //pizzaContainer.style.width = "33.33%";
-  //pizzaContainer.style.height = "325px";
-  pizzaContainer.id = "pizza" + i;                // gives each pizza element a unique id
+  pizzaContainer.classList.add("md"); // REV NOTE moved style width and height definition into .md CSS class
+  pizzaContainer.id = "pizza" + i; // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-sm-5");
   pizzaImageContainer.classList.add("col-md-6");
 
@@ -393,15 +391,13 @@ var pizzaElementGenerator = function(i) {
   pizzaPicture.appendChild(pizzaSource1);
   pizzaPicture.appendChild(pizzaSource2);
 
-  //pizzaImage.srcset = "images/pizza.png 212w, images/pizza_lg_phn.png 67w"; //updated to try out responsive images
   pizzaImage.src = "images/pizza.png"; //updated to try out responsive images
   pizzaImage.alt = "pizza";
   pizzaImage.classList.add("img-responsive");
-  //pizzaImageContainer.appendChild(pizzaImage);
   pizzaPicture.appendChild(pizzaImage);
   pizzaContainer.appendChild(pizzaImageContainer);
 
-  pizzaDescriptionContainer.classList.add("col-sm-7");
+  pizzaDescriptionContainer.classList.add("col-sm-7"); // UX NOTE added grid style to avoid text cutoff on right edge of small devices
   pizzaDescriptionContainer.classList.add("col-md-6");
   pizzaName = document.createElement("h4");
   pizzaName.innerHTML = randomName();
@@ -417,7 +413,7 @@ var pizzaElementGenerator = function(i) {
 
 // resizePizzas(size) is called when the slider in the "Our Pizzas" section of the website moves.
 var resizePizzas = function(size) { 
-  window.performance.mark("mark_start_resize");   // User Timing API function
+  window.performance.mark("mark_start_resize"); // User Timing API function
 
   // Changes the value for the size of the pizza above the slider
   function changeSliderLabel(size) {
@@ -440,52 +436,42 @@ var resizePizzas = function(size) {
 
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
   function determineDx (elem, size) {
-    //var oldwidth = elem.offsetWidth;
-    //var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
-    //var oldsize = oldwidth / windowwidth;
 
-    // TODO: change to 3 sizes? no more xl?
     // Changes the slider value to a percent width
-    function sizeSwitcher (size) { //11 20 14 commented out determineDx to just use percent width values
+    function sizeSwitcher (size) { // REV NOTE modified to return corresponding class name for pizza size
       switch(size) {
         case "1":
           return 'sm';
-          //return 0.25;
         case "2":
           return 'md';
-          //return 0.3333;
         case "3":
           return 'lg';
-          //return 0.5;
         default:
           console.log("bug in sizeSwitcher");
       }
     }
 
     var newsize = sizeSwitcher(size);
-    //var dx = (newsize - oldsize) * windowwidth;
 
     return newsize;
   }
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    //moved dx and newwidth calculations outside of the for loop b/c they only need to be performed once for the entire page
+    // REV NOTE reduced css triggers by setting width and height via CSS classes
+    // REV NOTE simplified logic for changing pizza size by toggling the original pizza size and adding the class for the 
+    // recently selected pizza size. but don't know if this is more efficient than original author's way
     var classSize = determineDx(document.querySelector(".randomPizzaContainer"), size);
-    //var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
-    //var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
       //disable the current size
-      if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('sm')) { //sm
+      if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('sm')) {
         document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('sm');
-      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('md')) { //md
+      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('md')) {
         document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('md');
-      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg')) { //lg
+      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg')) {
         document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg');
       }
       document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle(classSize); //enable the new size
-
-      //document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
 
@@ -515,25 +501,26 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
-var ticking = false,
+var ticking = false, // used by raf (requestAnimationFrame) for updating bgd pizzas
+  ticking2 = false, // used by raf for drawing additional random pizzas
   latestKnownScrollY = 0,
-  ticking2 = false,
-  //firstRandomPizzasDrawn = false,
   lastRandomPizzaDrawn = false,
-  windowHeight = window.innerHeight,
-  //pizzaGenOffset = document.querySelector('#pizzaGenerator').offsetTop,
-  pizzaHeight = document.querySelector('.randomPizzaContainer').clientHeight;
+  windowHeight = window.innerHeight, // REV NOTE pulled this out from function to avoid CSS trigger per scroll event
+  pizzaHeight = document.querySelector('.randomPizzaContainer').clientHeight, // REV NOTE pulled this out from function to avoid CSS trigger per scroll event
+  latestKnownLastRandomPizzaOffsetTop = 0, // REV NOTE moved this var for last random pizza offset top to avoid forced synchronous layout
+  latestKnownRandomPizzaGeneratorOffsetTop = 0; // REV NOTE moved this var for last random pizza offset top to avoid forced synchronous layout
 
-//REV NOTE - 1 separating scroll event from the repaint event for background pizzas; 2 defering generation of random pizzas (foreground) to the 
-//first scroll event => this should speed up initial page load for contents above the fold
+// REV NOTE - 1 separating scroll event from the repaint event for background pizzas; 2 defering generation of random pizzas (foreground) to the 
+// first scroll event => this should speed up initial page load for contents above the fold
 function onScroll() {
+  var allRandomPizzas = document.querySelectorAll(".randomPizzaContainer");
+  var lastRandomPizza = allRandomPizzas[allRandomPizzas.length - 1];
+
   latestKnownScrollY = window.scrollY;
-  //console.log('latestKnownScrollY: ' + latestKnownScrollY);
+  latestKnownLastRandomPizzaOffsetTop = lastRandomPizza.offsetTop;
+  latestKnownRandomPizzaGeneratorOffsetTop = document.querySelector('#pizzaGenerator').offsetTop;
   requestTick();
   requestTick2();
-  //if (!lastRandomPizzaDrawn) {
-  //  drawRandomPizzas();
-  //}
 }
 
 //helper 
@@ -542,42 +529,24 @@ function drawRandomPizzas() {
   function isJustBelowScrolledView() {
     var currentScrollY = latestKnownScrollY;
     ticking2 = false;
-    var docViewTop = currentScrollY;
-    //console.log('docViewTop: ' + docViewTop)
-  
+    var docViewTop = currentScrollY;  
     var docViewBottom = docViewTop + windowHeight;
-    //console.log('docViewBottom: ' + docViewBottom)
-
-    var allRandomPizzas = document.querySelectorAll(".randomPizzaContainer");
-    var lastRandomPizza = allRandomPizzas[allRandomPizzas.length - 1];
-    //var elemTop = lastRandomPizza.scrollTop;
-    var elemTop = lastRandomPizza.offsetTop + document.querySelector('#pizzaGenerator').offsetTop;
-    //console.log('pizzaGeneratorTop: ' + document.querySelector('#pizzaGenerator').offsetTop);
-    //console.log('elemTop: ' + elemTop);
-    //var elemTop = $(elem).offset().top;
+    var elemTop = latestKnownLastRandomPizzaOffsetTop + latestKnownRandomPizzaGeneratorOffsetTop;
     var elemBottom = elemTop + pizzaHeight;
-    //console.log('elemBottom: ' + elemBottom);
 
-    //console.log('elem below docViewTop: ' + (elemTop >= docViewTop));
-    //return ((docViewBottom + pizzaHeight <= elemBottom) && (elemTop >= docViewTop));
+    // REV NOTE returns true if the last random pizza is showing halfway or just below the viewport
     return ((elemTop >= docViewBottom - pizzaHeight) && (elemBottom <= docViewBottom + pizzaHeight));
   }
-  //console.log(isJustBelowScrolledView());
 
   window.performance.mark("mark_start_generating"); // collect timing data
-  //var currentScrollY = latestKnownScrollY;
-  //get the style top value for the last drawn random pizza
-  //var lastPizzaTop = document.querySelectorAll("img[alt='pizza']")[document.querySelectorAll("img[alt='pizza']").length - 1].style.top;
-  //console.log('lastPizzaTop: ' + lastPizzaTop);
-  // This for-loop actually creates and appends all of the pizzas when the page loads
-  //for (var i = 2; i < 100; i++) { //original
+
   if (!lastRandomPizzaDrawn && isJustBelowScrolledView()) {
-    for (var i = 0; i < 4; i++) { //trying to render only what would show when the pizza slider control displays
+    for (var i = 0; i < 4; i++) { // REV NOTE draws only the next row of pizzas
       var pizzasDiv = document.getElementById("randomPizzas");
       pizzasDiv.appendChild(pizzaElementGenerator(i));
     }
   }
-  if (document.querySelectorAll(".randomPizzaContainer").length >= 100) {
+  if (document.querySelectorAll(".randomPizzaContainer").length >= 100) { //sets max num of random pizzas to 100
     lastRandomPizzaDrawn = true;
   }
 
@@ -591,7 +560,6 @@ function drawRandomPizzas() {
 function requestTick() {
   if (!ticking) {
     requestAnimationFrame(updatePositions);
-    //console.log('updatePositions got called onscroll');
   }
   ticking = true;
 }
