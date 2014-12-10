@@ -128,8 +128,10 @@
         width: 29.2px;
       }
     }
-
   </style>
+  <!--REV NOTE set main.js as async b/c included functionality can happen after the content above the fold is loaded-->
+  <script async type="text/javascript" src="js/main.js"></script>
+
 </head>
 
 <body>
@@ -306,8 +308,6 @@
       updatePositions();
     });
   </script>
-  <!--REV NOTE set main.js as async b/c included functionality can happen after the content above the fold is loaded-->
-  <script async type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
