@@ -383,7 +383,6 @@ var pizzaElementGenerator = function(i) {
   pizzaImageContainer.classList.add("col-sm-5");
   pizzaImageContainer.classList.add("col-md-6");
 
-  pizzaImageContainer.appendChild(pizzaPicture);
   pizzaSource1.media = "(max-width: 640px)";
   pizzaSource1.srcset = "images/pizza_lg_phn.png";
   pizzaSource2.media = "(min-width: 641px)";
@@ -395,6 +394,7 @@ var pizzaElementGenerator = function(i) {
   pizzaImage.alt = "pizza";
   pizzaImage.classList.add("img-responsive");
   pizzaPicture.appendChild(pizzaImage);
+  pizzaImageContainer.appendChild(pizzaPicture);
   pizzaContainer.appendChild(pizzaImageContainer);
 
   pizzaDescriptionContainer.classList.add("col-sm-7"); // UX NOTE added grid style to avoid text cutoff on right edge of small devices
@@ -529,7 +529,7 @@ function drawRandomPizzas() {
   function isJustBelowScrolledView() {
     var currentScrollY = latestKnownScrollY;
     ticking2 = false;
-    var docViewTop = currentScrollY;  
+    var docViewTop = currentScrollY;
     var docViewBottom = docViewTop + windowHeight;
     var elemTop = latestKnownLastRandomPizzaOffsetTop + latestKnownRandomPizzaGeneratorOffsetTop;
     var elemBottom = elemTop + pizzaHeight;
