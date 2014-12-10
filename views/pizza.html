@@ -297,13 +297,27 @@
       var s = screenWidth / 6;
 
       for (var i = 0; i < 88; i++) { //REV NOTE decreased initial count (200) of bgd pizzas generated onload
+        var pic = document.createElement('picture');
+        var src1 = document.createElement('source');
+        var src2 = document.createElement('source');
         var elem = document.createElement('img');
+
+        src1.media = "(max-width: 640px)";
+        src1.srcset = "images/pizza_lg_phn.png";
+        src2.media = "(min-width: 641px)";
+        src2.srcset = "images/pizza.png";
+        pic.appendChild(src1);
+        pic.appendChild(src2);
+
         //REV NOTE used classList instead of classname; set height, width using existing mover class in CSS
         elem.classList.add('mover');
         elem.src = "images/pizza.png";
+        elem.alt = "pizza";
         elem.basicLeft = (i % cols) * s;
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
-        document.querySelector("#movingPizzas1").appendChild(elem);
+        pic.appendChild(elem);
+
+        document.querySelector("#movingPizzas1").appendChild(pic);
       }
       updatePositions();
     });
