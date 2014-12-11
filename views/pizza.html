@@ -56,6 +56,27 @@
       background-color: rgba(240, 60, 60, 0.8);
     }
 
+    #sizeSlider {
+      margin-bottom: 25px; /* added b/c large size pizzas were covering and inactivating the control*/
+    }
+
+    .large, .medium, .small {
+      will-change: transform;
+    }
+
+    img.large {
+      transform: scale(1.2);
+    }
+
+    img.medium {
+      transform: scale(1.0);
+    }
+
+    img.small {
+      transform: scale(0.8);
+    }
+
+
   </style>
   <!-- REV NOTE moved bootstrap CSS inline to remove render blocking CSS-->
   <style>
@@ -71,32 +92,19 @@
 
   <!-- REV NOTE updating the size of the random pizzas by assigning width value to style classes. this resolves the issue of forced synchronous layout -->
   <style>
-    .lg {
-      width: 50%;
-    }
 
-    .md {
-      width: 33%;
+    .3col {
+/*        width: 50%;
+*/    width: 33%;
       height: 280px;
     }
 
-    .sm {
-      width: 25%;
-      height: 340px;
-    }
-
     @media (min-width: 481px) and (max-width: 760px) {
-      .lg {
-        height: 165px;
-      }
-
+    /*  
       .md {
         width: 42%;
       }
-
-      .sm {
-        width: 34%;
-      }
+      }*/
 
       .mover {
         height: 60px;
@@ -109,19 +117,12 @@
         font-size: 14px;
       }
 
-      .lg {
-        width: 100%;
-      }
-
+      /*
       .md {
         width: 75%;
         height: 100%;
       }
-
-      .sm {
-        width: 65%;
-        height: 100%;
-      }
+      }*/
 
       .mover {
         height: 40px;
@@ -235,12 +236,12 @@
           </div>
         </div>
         <div id="randomPizzas" class="row">
-          <div id="pizza0" class="randomPizzaContainer md" > <!-- REV NOTE moved style width into the .md class definition -->
+          <div id="pizza0" class="randomPizzaContainer 3col" > <!-- REV NOTE moved style width into the .md class definition -->
             <div class="col-sm-5 col-md-6"> <!-- UX NOTE modified grid layout for small devices to avoid text getting cut off -->
               <picture> <!-- REV NOTE added responsive image tag <picture> to speed up download of pizza image on mobile devices-->
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
-                <img src="images/pizza.png" alt="pizza" class="img-responsive">
+                <img src="images/pizza.png" alt="pizza" class="medium"> <!-- test remove img-responsive; test medium -->
               </picture>
             </div>
             <div class="col-sm-7 col-md-6">
@@ -256,12 +257,12 @@
               </ul>
             </div>
           </div>
-          <div id="pizza1" class="randomPizzaContainer md">
+          <div id="pizza1" class="randomPizzaContainer 3col">
             <div class="col-sm-5 col-md-6" >
               <picture>
                 <source media="(max-width: 640px)" srcset="images/pizza_lg_phn.png" />
                 <source media="(min-width: 641px)" srcset="images/pizza.png" />
-                <img src="images/pizza.png" alt="pizza" class="img-responsive">
+                <img src="images/pizza.png" alt="pizza" class="medium"> <!-- test remove img-responsive; test medium -->
               </picture>
             </div>
             <div class="col-sm-7 col-md-6">
@@ -278,18 +279,7 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
-  <script> 
-  /*REV NOTE moved updatePositions() and DOMContentLoaded listener from main.js to html ; this allowed setting main.js to async
-      but it resulted in having duplication of updatePositions() also in main.js*/
-    function updatePositions() {
-      var items = document.querySelectorAll('.mover');
-      for (var i = 0; i < items.length; i++) {
-        //REV NOTE changed the scrollY or scrollTop lookup to static 0 value => avoided syncronous layout
-        var phase = Math.sin((0 / 1250) + (i % 5));
-        items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-      }
-    }
-
+  <script>
     // Generates the sliding pizzas when the page loads.
     document.addEventListener('DOMContentLoaded', function() {
       var cols = 6;
@@ -309,17 +299,19 @@
         pic.appendChild(src1);
         pic.appendChild(src2);
 
-        //REV NOTE used classList instead of classname; set height, width using existing mover class in CSS
+        // REV NOTE used classList instead of classname; set height, width using existing mover class in CSS
         elem.classList.add('mover');
         elem.src = "images/pizza.png";
-        elem.alt = "pizza";
+        //elem.alt = "pizza";
         elem.basicLeft = (i % cols) * s;
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        // REV NOTE moved first updatePositions() logic into this function to avoid style recalculation
+        var phase = Math.sin((0 / 1250) + (i % 5));
+        elem.style.left = elem.basicLeft + 100 * phase + 'px';
         pic.appendChild(elem);
 
         document.querySelector("#movingPizzas1").appendChild(pic);
       }
-      updatePositions();
     });
   </script>
 </body>

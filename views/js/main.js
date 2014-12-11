@@ -378,7 +378,8 @@ var pizzaElementGenerator = function(i) {
   pizzaDescriptionContainer = document.createElement("div");
 
   pizzaContainer.classList.add("randomPizzaContainer");
-  pizzaContainer.classList.add("md"); // REV NOTE moved style width and height definition into .md CSS class
+  pizzaContainer.classList.add("3col"); // REV NOTE moved style width and height definition into .md CSS class
+  // pizzaContainer.classList.add("md"); // REV NOTE moved style width and height definition into .md CSS class
   pizzaContainer.id = "pizza" + i; // gives each pizza element a unique id
   pizzaImageContainer.classList.add("col-sm-5");
   pizzaImageContainer.classList.add("col-md-6");
@@ -392,7 +393,9 @@ var pizzaElementGenerator = function(i) {
 
   pizzaImage.src = "images/pizza.png"; //updated to try out responsive images
   pizzaImage.alt = "pizza";
-  pizzaImage.classList.add("img-responsive");
+  //pizzaImage.classList.add("img-responsive");
+  //test
+  pizzaImage.classList.add("medium");
   pizzaPicture.appendChild(pizzaImage);
   pizzaImageContainer.appendChild(pizzaPicture);
   pizzaContainer.appendChild(pizzaImageContainer);
@@ -441,11 +444,14 @@ var resizePizzas = function(size) {
     function sizeSwitcher (size) { // REV NOTE modified to return corresponding class name for pizza size
       switch(size) {
         case "1":
-          return 'sm';
+          return 'small';
+          // return 'sm';
         case "2":
-          return 'md';
+          return 'medium';
+          // return 'md';
         case "3":
-          return 'lg';
+          return 'large';
+          // return 'lg';
         default:
           console.log("bug in sizeSwitcher");
       }
@@ -464,14 +470,24 @@ var resizePizzas = function(size) {
     var classSize = determineDx(document.querySelector(".randomPizzaContainer"), size);
     for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
       //disable the current size
-      if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('sm')) {
-        document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('sm');
-      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('md')) {
-        document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('md');
-      } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg')) {
-        document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg');
+
+      console.log('length of random pizzas: ' + document.querySelectorAll("img[alt='pizza']").length);
+      if (document.querySelectorAll("img[alt='pizza']")[i].classList.contains('small')) {
+        document.querySelectorAll("img[alt='pizza']")[i].classList.toggle('small');
+      } else if (document.querySelectorAll("img[alt='pizza']")[i].classList.contains('medium')) {
+        document.querySelectorAll("img[alt='pizza']")[i].classList.toggle('medium');
+      } else if (document.querySelectorAll("img[alt='pizza']")[i].classList.contains('large')) {
+        document.querySelectorAll("img[alt='pizza']")[i].classList.toggle('large');
       }
-      document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle(classSize); //enable the new size
+
+      // if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('sm')) {
+      //   document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('sm');
+      // } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.contains('md')) {
+      //   document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('md');
+      // } else if (document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg')) {
+      //   document.querySelectorAll(".randomPizzaContainer")[i].classList.toggle('lg');
+      // }
+      document.querySelectorAll("img[alt='pizza']")[i].classList.toggle(classSize); //enable the new size
     }
   }
 
