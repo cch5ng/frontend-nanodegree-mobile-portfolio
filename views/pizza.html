@@ -76,36 +76,6 @@
       transform: scale(0.8);
     }
 
-    .row0 {
-      top: 0px;
-      /*transform: translateY(0px);*/
-    }
-
-    .row1 {
-/*      top: 150px;
-*/      transform: translateY(150px);
-    }
-
-    .row2 {
-/*      top: 300px;
-*/      transform: translateY(300px);
-    }
-
-    .row3 {
-/*      top: 450px;
-*/      transform: translateY(450px);
-    }
-
-    .row4 {
-/*      top: 600px;
-*/      transform: translateY(600px);
-    }
-
-    .row5 {
-/*      top: 750px;
-*/      transform: translateY(750px);
-    }
-
   </style>
   <!-- REV NOTE moved bootstrap CSS inline to remove render blocking CSS-->
   <style>
@@ -333,26 +303,6 @@
         elem.src = "images/pizza.png";
         elem.basicLeft = (i % cols) * s;
         elem.style.top = (Math.floor(i / cols) * s) + 'px';
-        // switch (Math.floor(i / cols)) {
-        //   case 0:
-        //     elem.classList.add('row0');
-        //     break;
-        //   case 1:
-        //     elem.classList.add('row1');
-        //     break;
-        //   case 2:
-        //     elem.classList.add('row2');
-        //     break;
-        //   case 3:
-        //     elem.classList.add('row3');
-        //     break;
-        //   case 4:
-        //     elem.classList.add('row4');
-        //     break;
-        //   case 5:
-        //     elem.classList.add('row5');
-        //     break;
-        // }
 
         // REV NOTE moved first updatePositions() logic into this function to avoid style recalculation
         var phase = Math.sin(i % 6);
