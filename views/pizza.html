@@ -332,27 +332,27 @@
         elem.classList.add('mover');
         elem.src = "images/pizza.png";
         elem.basicLeft = (i % cols) * s;
-        //elem.style.top = (Math.floor(i / cols) * s) + 'px';
-        switch (Math.floor(i / cols)) {
-          case 0:
-            elem.classList.add('row0');
-            break;
-          case 1:
-            elem.classList.add('row1');
-            break;
-          case 2:
-            elem.classList.add('row2');
-            break;
-          case 3:
-            elem.classList.add('row3');
-            break;
-          case 4:
-            elem.classList.add('row4');
-            break;
-          case 5:
-            elem.classList.add('row5');
-            break;
-        }
+        elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        // switch (Math.floor(i / cols)) {
+        //   case 0:
+        //     elem.classList.add('row0');
+        //     break;
+        //   case 1:
+        //     elem.classList.add('row1');
+        //     break;
+        //   case 2:
+        //     elem.classList.add('row2');
+        //     break;
+        //   case 3:
+        //     elem.classList.add('row3');
+        //     break;
+        //   case 4:
+        //     elem.classList.add('row4');
+        //     break;
+        //   case 5:
+        //     elem.classList.add('row5');
+        //     break;
+        // }
 
         // REV NOTE moved first updatePositions() logic into this function to avoid style recalculation
         var phase = Math.sin(i % 6);
