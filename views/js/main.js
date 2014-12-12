@@ -575,7 +575,7 @@ function drawRandomPizzas() {
     var elemTop = latestKnownLastRandomPizzaOffsetTop + latestKnownRandomPizzaGeneratorOffsetTop;
     var elemBottom = elemTop + pizzaHeight;
 
-    return ((elemTop >= docViewBottom - pizzaHeight) && (elemBottom <= docViewBottom + pizzaHeight));
+    return ((elemTop >= docViewBottom - pizzaHeight) && (elemBottom <= docViewBottom + 1/2 * windowHeight));
   }
 
   window.performance.mark("mark_start_generating"); // collect timing data
