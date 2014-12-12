@@ -35,7 +35,7 @@
 
     .mover {
       position: fixed;
-      width: 256px;
+      /*width: 256px;*/
       z-index: -1;
       height: 100px; /* REV NOTE moved height and width into the class style to reduce CSS triggers in the javascript*/
       width: 73.333px;
@@ -76,6 +76,35 @@
       transform: scale(0.8);
     }
 
+    .row0 {
+      top: 0px;
+      /*transform: translateY(0px);*/
+    }
+
+    .row1 {
+/*      top: 150px;
+*/      transform: translateY(150px);
+    }
+
+    .row2 {
+/*      top: 300px;
+*/      transform: translateY(300px);
+    }
+
+    .row3 {
+/*      top: 450px;
+*/      transform: translateY(450px);
+    }
+
+    .row4 {
+/*      top: 600px;
+*/      transform: translateY(600px);
+    }
+
+    .row5 {
+/*      top: 750px;
+*/      transform: translateY(750px);
+    }
 
   </style>
   <!-- REV NOTE moved bootstrap CSS inline to remove render blocking CSS-->
@@ -302,11 +331,31 @@
         // REV NOTE used classList instead of classname; set height, width using existing mover class in CSS
         elem.classList.add('mover');
         elem.src = "images/pizza.png";
-        //elem.alt = "pizza";
         elem.basicLeft = (i % cols) * s;
-        elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        //elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        switch (Math.floor(i / cols)) {
+          case 0:
+            elem.classList.add('row0');
+            break;
+          case 1:
+            elem.classList.add('row1');
+            break;
+          case 2:
+            elem.classList.add('row2');
+            break;
+          case 3:
+            elem.classList.add('row3');
+            break;
+          case 4:
+            elem.classList.add('row4');
+            break;
+          case 5:
+            elem.classList.add('row5');
+            break;
+        }
+
         // REV NOTE moved first updatePositions() logic into this function to avoid style recalculation
-        var phase = Math.sin((0 / 1250) + (i % 5));
+        var phase = Math.sin(i % 6);
         elem.style.left = elem.basicLeft + 100 * phase + 'px';
         pic.appendChild(elem);
 
