@@ -1,3 +1,5 @@
+turned in version 12 12 14. know there are issues with fps. scrolling especially janky. but wanted to be able to move forward somewhat. keeping this vers as reference.
+
 STEPS TO RUN APPLICATION
 
 1 I used an experimental html element, <picture> for responsive images. It requires configuration in Chrome and Firefox.
