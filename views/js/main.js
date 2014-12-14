@@ -494,11 +494,36 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
+var ticking = false, // used by raf (requestAnimationFrame) for updating bgd pizzas
+  latestKnownScrollY = 0;
+
+/**
+  * Scroll event handler.
+  * REV NOTE - 1 separating scroll event from the repaint event for background pizzas; 2 defering generation of random pizzas (foreground)
+  *     to the first scroll event => this should speed up initial page load for contents above the fold
+  */
+function onScroll() {
+  latestKnownScrollY = window.scrollY;
+  requestTick();
+}
+
+/**
+  * Staggers the timing to call updatePositions() to be closer to 60fps. 
+  */
+function requestTick() {
+  if (!ticking) {
+    requestAnimationFrame(updatePositions);
+  }
+  ticking = true;
+}
+
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
+  var currentScrollY = latestKnownScrollY;
+  ticking = false;
   frame++;
   window.performance.mark("mark_start_frame");
 
@@ -520,7 +545,7 @@ function updatePositions() {
 }
 
 // runs updatePositions on scroll
-window.addEventListener('scroll', updatePositions);
+window.addEventListener('scroll', onScroll);
 
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
