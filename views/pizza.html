@@ -97,7 +97,12 @@
     </div>
     <div id="callToAction" class="row">
       <div class="col-md-4">
-        <img src="images/pizzeria.jpg" class="img-responsive"> <!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
+        <!-- REV NOTE added responsive image tag <picture> to speed up download of pizzeria image on mobile devices-->
+        <!-- REV NOTE optimized pizzeria image by saving at lower quality and scaling down the size-->
+        <picture>
+          <source media="(max-width: 640px)" srcset="images/pizzeria_sm.jpg"/>
+          <img src="images/pizzeria.jpg" alt="pizzeria" class="img-responsive"/><!-- Image credit to: http://commons.wikimedia.org/wiki/File:HK_TST_night_%E5%98%89%E8%98%AD%E9%81%93_Granville_Road_restaurant_Paisano's_Pizzeria_pizza_Dec-2013.JPG -->
+        </picture>
       </div>
       <div class="col-md-8">
         <div class="row">
