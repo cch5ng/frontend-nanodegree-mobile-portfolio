@@ -380,19 +380,26 @@ var pizzaElementGenerator = function(i) {
 
   pizzaImage.src = "images/pizza.png";
   pizzaImage.classList.add("img-responsive");
+  // pizzaImageContainer.insertAdjacentHTML('beforeend', pizzaImage);
   pizzaImageContainer.appendChild(pizzaImage);
+  // pizzaContainer.insertAdjacentHTML('beforeend', pizzaImageContainer);
   pizzaContainer.appendChild(pizzaImageContainer);
 
 
   pizzaDescriptionContainer.classList.add("col-md-6");
 
   pizzaName = document.createElement("h4");
+  // pizzaName.insertAdjacentHTML('afterbegin', randomName()); // REV NOTE changed from innerHTML to insertAdjacentHTML
   pizzaName.innerHTML = randomName();
+  // pizzaDescriptionContainer.insertAdjacentHTML('beforeend', pizzaName);
   pizzaDescriptionContainer.appendChild(pizzaName);
 
   ul = document.createElement("ul");
+  // ul.insertAdjacentHTML('afterbegin', makeRandomPizza()); // REV NOTE changed from innerHTML to insertAdjacentHTML
   ul.innerHTML = makeRandomPizza();
+  // pizzaDescriptionContainer.insertAdjacentHTML('beforeend', ul);
   pizzaDescriptionContainer.appendChild(ul);
+  // pizzaContainer.insertAdjacentHTML('beforeend', pizzaDescriptionContainer);
   pizzaContainer.appendChild(pizzaDescriptionContainer);
 
   return pizzaContainer;
@@ -526,11 +533,13 @@ function updatePositions() {
   ticking = false;
   frame++;
   window.performance.mark("mark_start_frame");
+  //(i % cols) * s;
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((currentScrollY / 1250) + (i % 5));
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+    //items[i].classList.add('slideAnim');
+    var phase = Math.sin((currentScrollY / 1250) + (i % 5)); //think range of phase will be -1 => 1 but try to verify this
+    items[i].style.left = (i % 6) * 150 + 100 * phase + 'px'; //range will be basicLeft +/- 100
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
