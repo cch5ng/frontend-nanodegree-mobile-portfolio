@@ -61,20 +61,152 @@
       background-color: rgba(240, 60, 60, 0.8);
     }
 
-    .slideAnim {
-      -webkit-animation: slide 3s both ease-in infinite alternate-reverse ;
-    }
+.position0 {
+  transform: translate(0px, 0px);
+}
 
-    @keyframes slide {
-      0% {
-        -webkit-transform: translateX(0px);
-      }
-      100% {
-        -webkit-transform: translateX(150px);
-      }
-    }
+.animate0 {
+  /*top: 0px;
+  left: 0px;*/
+/*  transform: translate(0px, 0px);*/
+  -webkit-animation: move 7s ease infinite;
+}
+
+.animate1 {
+  top: 0px;
+  left: 100px;
+/*  transform: translate(100px, 0px);*/
+  -webkit-animation: move 7s ease infinite;
+}
+
+.animate2 {
+  top: 0px;
+  left: 200px;
+/*  transform: translate(200px, 0px);*/
+  -webkit-animation: move 7s ease infinite;
+}
+
+.animate3 {
+  top: 0px;
+  left: 300px;
+/*  transform: translate(300px, 0px);*/
+    -webkit-animation: move 7s ease infinite;
+}
+
+.animate4 {
+  top: 0px;
+  left: 400px;
+/*  transform: translate(400px, 0px);*/
+  -webkit-animation: move 7s ease infinite;
+}
+
+.animate5 {
+  top: 150px;
+  left: 0px;
+/*transform: translate(0px, 150px);
+*/  -webkit-animation: move 7s ease infinite;
+}
+
+.animate6 {
+  top: 150px;
+  left: 100px;
+/*  transform: translate(100px, 150px);
+*/  -webkit-animation: move 7s ease infinite;
+}
+
+.animate7 {
+  top: 150px;
+  left: 200px;
+/*  transform: translate(200px, 150px);
+*/  -webkit-animation: move 7s ease infinite;
+}
+
+.animate8 {
+  top: 150px;
+  left: 300px;
+/*  transform: translate(300px, 150px);
+*/  -webkit-animation: move 7s ease infinite;
+}
+
+.animate9 {
+  top: 150px;
+  left: 400px;
+/*  transform: translate(400px, 150px);
+*/  -webkit-animation: move 7s ease infinite;
+}
+
+.position10 {
+  transform: translate(0px, 450px);
+}
+
+.animate10 {
+/*  top: 450px;
+  left: 0px;
+*//*transform: translate(0px, 150px);
+*/  -webkit-animation: move10 7s ease infinite;
+}
+
+.position11 {
+  transform: translate(100px, 450px);
+}
+
+.animate11 {
+/*  top: 450px;
+  left: 100px;
+*//*  transform: translate(100px, 150px);
+*/  -webkit-animation: move11 7s ease infinite;
+}
+
+.animate12 {
+  top: 450px;
+  left: 200px;
+/*  transform: translate(200px, 150px);
+*/  -webkit-animation: move 7s ease infinite;
+}
+
+.animate13 {
+  top: 450px;
+  left: 300px;
+/*  transform: translate(300px, 450px);*/
+  -webkit-animation: move 7s ease infinite;
+}
+
+.animate14 {
+  top: 450px;
+  left: 400px;
+/*  transform: translate(400px, 450px);*/
+  -webkit-animation: move 7s ease infinite;
+}
+
+.animate15 {
+  top: 450px;
+  left: 500px;
+/*  transform: translate(500px, 450px);*/
+  -webkit-animation: move 7s ease infinite;
+}
 
   </style>
+
+<!--<style>
+  @-webkit-keyframes move {
+    50% {
+      -webkit-transform: translate(200px, 0px);
+    }
+  }
+
+  @-webkit-keyframes move10 {
+    50% {
+      -webkit-transform: translate(200px, 450px);
+    }
+  }
+
+  @-webkit-keyframes move11 {
+    50% {
+      -webkit-transform: translate(300px, 450px);
+    }
+  }
+</style>-->
+
   <!-- Bootstrap v3.2.0 (http://getbootstrap.com)
    Copyright 2011-2014 Twitter, Inc.
    Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
@@ -115,36 +247,23 @@
         </div>
       </div>
       <div id="movingPizzas1" > <!-- REV NOTE hard-coded the background pizzas and set position with css transform--> <!-- class="col-md-6" -->
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(0px, 0px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(100px, 0px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(200px, 0px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(300px, 0px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(400px, 0px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(500px, 0px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(0px, 150px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(100px, 150px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(200px, 150px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(300px, 150px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(400px, 150px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(500px, 150px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(0px, 300px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(100px, 300px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(200px, 300px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(300px, 300px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(400px, 300px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(500px, 300px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(0px, 450px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(100px, 450px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(200px, 450px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(300px, 450px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(400px, 450px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(500px, 450px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(0px, 600px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(100px, 600px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(200px, 600px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(300px, 600px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(400px, 600px);">
-        <img src="images/pizza_lg_phn.png" class="mover" style="-webkit-transform: translate(500px, 600px);">
+<!--         <img src="images/pizza_lg_phn.png" class="mover position0 animate0">
+        <img src="images/pizza_lg_phn.png" class="animate1 mover">
+        <img src="images/pizza_lg_phn.png" class="mover animate2">
+        <img src="images/pizza_lg_phn.png" class="mover animate3">
+        <img src="images/pizza_lg_phn.png" class="mover animate4">
+        <img src="images/pizza_lg_phn.png" class="mover animate5">
+        <img src="images/pizza_lg_phn.png" class="mover animate6">
+        <img src="images/pizza_lg_phn.png" class="mover animate7">
+        <img src="images/pizza_lg_phn.png" class="mover animate8">
+        <img src="images/pizza_lg_phn.png" class="mover animate9">
+
+        <img src="images/pizza_lg_phn.png" class="mover position10 animate10">
+        <img src="images/pizza_lg_phn.png" class="mover position11 animate11">
+        <img src="images/pizza_lg_phn.png" class="mover animate12">
+        <img src="images/pizza_lg_phn.png" class="mover animate13">
+        <img src="images/pizza_lg_phn.png" class="mover animate14">
+        <img src="images/pizza_lg_phn.png" class="mover animate15"> -->
       </div>
     </div>
     <div id="callToAction" class="row">
@@ -261,6 +380,39 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
+  <script>
+    // Generates the sliding pizzas when the page loads.
+    document.addEventListener('DOMContentLoaded', function() {
+      var cols = 6; //8
+      var s = 150; //256
+      var sheet = document.createElement('style');
+      var position_styles = '';
+      var animation_styles = '';
+      var animations = '';
+      for (var i = 0; i < 36; i++) { //200
+        var position_style = 'bgd_pizza' + i;//'bgd_pizza_row' + (Math.floor(i / cols)) + 'col' + (i % cols);
+        var animation_style = 'move_' + position_style;
+        var dx = (((i % cols) * 100) + (Math.sin(i % 5)) * 100).toString() + 'px, ';
+        var dy = ((Math.floor(i / cols)) * 150).toString() + 'px';
+        position_styles += '.bgd_pizza' + i + '{ transform: translate(' + dx + dy +  ');} ';
+        animation_styles += '.animate' + i + '{ animate: -webkit-animation: move' + i + ' 7s ease infinite;;}';
+        animations += '@-webkit-keyframes move' + i + ' {50% {-webkit-transform: translate(' + dx + dy + ');} }';
+        var elem = document.createElement('img');
+        elem.className = 'mover bgd_pizza' + i;
+        elem.src = "images/pizza_lg_phn.png"; //pizza.png
+        //elem.style.height = "100px";
+        //elem.style.width = "73.333px";
+        elem.basicLeft = (i % cols) * s;
+        //elem.style.top = (Math.floor(i / cols) * s) + 'px';
+        document.querySelector("#movingPizzas1").appendChild(elem);
+      }
+      sheet.insertAdjacentHTML('beforeend', position_styles + animation_styles + animations);
+      // sheet.insertAdjacentHTML(animation_styles);
+      // sheet.insertAdjacentHTML(animations);
+      document.head.appendChild(sheet);
+      //updatePositions();
+    });
+  </script>
 
   <script type="text/javascript" src="js/main.js" async></script> <!-- js/main.js -->
 </body>
