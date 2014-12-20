@@ -537,9 +537,22 @@ function updatePositions() {
 
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
-    //items[i].classList.add('slideAnim');
-    var phase = Math.sin((currentScrollY / 1250) + (i % 5)); //think range of phase will be -1 => 1 but try to verify this
-    items[i].style.left = (i % 6) * 150 + 100 * phase + 'px'; //range will be basicLeft +/- 100
+    //TODO define animation classes like (per image)
+    //.animate0 {
+    //  -webkit-animation: move 7s ease infinite;
+    //}
+    //@-webkit-keyframes move {
+    //  50% {
+    //  -webkit-transform: translate(200px, 0px);
+    //  }
+    //}
+    //TODO add the animation classes to header
+    //TODO add the animation class to the img tag
+    //TODO figure out when to toggle the animation class off (probably based on ticking animation event listener)
+    //don't like having to modify this per img but don't know how else to do
+
+    //var phase = Math.sin((currentScrollY / 1250) + (i % 5)); //think range of phase will be -1 => 1 but try to verify this
+    items[i].classList.add('animate' + i);
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
