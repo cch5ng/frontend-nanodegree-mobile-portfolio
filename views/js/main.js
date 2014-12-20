@@ -627,7 +627,8 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
   var items = document.querySelectorAll('.mover');
-  for (var i = 0; i < items.length; i++) {
+  var itemsLength = items.length;
+  for (var i = 0; i < itemsLength; i++) {
     var phase = Math.sin(( currentScrollY/ 1250) + (i % 5)); // REV NOTE changed document.body.scrollTop to currentScrollY to avoid forced synchronous layout
     items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
