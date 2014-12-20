@@ -60,131 +60,6 @@
     .container {
       background-color: rgba(240, 60, 60, 0.8);
     }
-
-.position0 {
-  transform: translate(0px, 0px);
-}
-
-.animate0 {
-  /*top: 0px;
-  left: 0px;*/
-/*  transform: translate(0px, 0px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
-.animate1 {
-  top: 0px;
-  left: 100px;
-/*  transform: translate(100px, 0px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
-.animate2 {
-  top: 0px;
-  left: 200px;
-/*  transform: translate(200px, 0px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
-.animate3 {
-  top: 0px;
-  left: 300px;
-/*  transform: translate(300px, 0px);*/
-    -webkit-animation: move 7s ease infinite;
-}
-
-.animate4 {
-  top: 0px;
-  left: 400px;
-/*  transform: translate(400px, 0px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
-.animate5 {
-  top: 150px;
-  left: 0px;
-/*transform: translate(0px, 150px);
-*/  -webkit-animation: move 7s ease infinite;
-}
-
-.animate6 {
-  top: 150px;
-  left: 100px;
-/*  transform: translate(100px, 150px);
-*/  -webkit-animation: move 7s ease infinite;
-}
-
-.animate7 {
-  top: 150px;
-  left: 200px;
-/*  transform: translate(200px, 150px);
-*/  -webkit-animation: move 7s ease infinite;
-}
-
-.animate8 {
-  top: 150px;
-  left: 300px;
-/*  transform: translate(300px, 150px);
-*/  -webkit-animation: move 7s ease infinite;
-}
-
-.animate9 {
-  top: 150px;
-  left: 400px;
-/*  transform: translate(400px, 150px);
-*/  -webkit-animation: move 7s ease infinite;
-}
-
-.position10 {
-  transform: translate(0px, 450px);
-}
-
-.animate10 {
-/*  top: 450px;
-  left: 0px;
-*//*transform: translate(0px, 150px);
-*/  -webkit-animation: move10 7s ease infinite;
-}
-
-.position11 {
-  transform: translate(100px, 450px);
-}
-
-.animate11 {
-/*  top: 450px;
-  left: 100px;
-*//*  transform: translate(100px, 150px);
-*/  -webkit-animation: move11 7s ease infinite;
-}
-
-.animate12 {
-  top: 450px;
-  left: 200px;
-/*  transform: translate(200px, 150px);
-*/  -webkit-animation: move 7s ease infinite;
-}
-
-.animate13 {
-  top: 450px;
-  left: 300px;
-/*  transform: translate(300px, 450px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
-.animate14 {
-  top: 450px;
-  left: 400px;
-/*  transform: translate(400px, 450px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
-.animate15 {
-  top: 450px;
-  left: 500px;
-/*  transform: translate(500px, 450px);*/
-  -webkit-animation: move 7s ease infinite;
-}
-
   </style>
 
 <!--<style>
@@ -394,9 +269,10 @@
         var animation_style = 'move_' + position_style;
         var dx = (((i % cols) * 100) + (Math.sin(i % 5)) * 100).toString() + 'px, ';
         var dy = ((Math.floor(i / cols)) * 150).toString() + 'px';
-        position_styles += '.bgd_pizza' + i + '{ transform: translate(' + dx + dy +  ');} ';
-        animation_styles += '.animate' + i + '{ animate: -webkit-animation: move' + i + ' 7s ease infinite;;}';
-        animations += '@-webkit-keyframes move' + i + ' {50% {-webkit-transform: translate(' + dx + dy + ');} }';
+        var anim_dx = (((i % cols) * 100) + ((Math.sin(i % 5)) * 100) + 150).toString() + 'px, ';
+        position_styles += '.bgd_pizza' + i + '{-webkit-transform: translate(' + dx + dy +  ');} ';
+        animation_styles += '.animate' + i + '{-webkit-animation: move' + i + ' 3s ease infinite;} ';
+        animations += '@-webkit-keyframes move' + i + ' {50% {-webkit-transform: translate(' + anim_dx + dy + ');} } ';
         var elem = document.createElement('img');
         elem.className = 'mover bgd_pizza' + i;
         elem.src = "images/pizza_lg_phn.png"; //pizza.png
