@@ -492,7 +492,7 @@ var resizePizzas = function(size) {
     var classSize = sizeSwitcher(size);
     for (var i = 0; i < document.querySelectorAll("img[alt='pizza']").length; i++) {
       //disable the current size
-      console.log('length of random pizzas: ' + document.querySelectorAll("img[alt='pizza']").length);
+	//      console.log('length of random pizzas: ' + document.querySelectorAll("img[alt='pizza']").length);
       if (document.querySelectorAll("img[alt='pizza']")[i].classList.contains('small')) {
         document.querySelectorAll("img[alt='pizza']")[i].classList.toggle('small');
       } else if (document.querySelectorAll("img[alt='pizza']")[i].classList.contains('medium')) {
