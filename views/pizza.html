@@ -5,79 +5,7 @@
   <!-- REV NOTE added viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1" >
   <!-- REV NOTE made the CSS inline-->
-  <style>
-    * {
-      -webkit-box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      -box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Trebuchet MS", Helvetica, sans-serif;
-      background: black;
-    }
-
-    input {
-      background: grey;
-      font-size: 18px;
-    }
-
-    form {
-      display: inline-block;
-    }
-
-    .centered {
-      text-align: center;
-    }
-
-    #pizzaSize {
-      font-weight: 800;
-    }
-
-    .mover {
-      position: fixed;
-      /*width: 256px;*/
-      z-index: -1;
-      height: 100px; /* REV NOTE moved height and width into the class style to reduce CSS triggers in the javascript*/
-      width: 73.333px;
-    }
-
-    .randomPizzaContainer {
-      float: left;
-      display: flex;
-    }
-
-    .randomPizzaContainer:after {
-      content: "";
-      display: table;
-      clear:both;
-    }
-
-    .container {
-      background-color: rgba(240, 60, 60, 0.8);
-    }
-
-    #sizeSlider {
-      margin-bottom: 25px; /* added b/c large size pizzas were covering and inactivating the control*/
-    }
-
-    .large, .medium, .small {
-      will-change: transform;
-    }
-
-    img.large {
-      transform: scale(1.2);
-    }
-
-    img.medium {
-      transform: scale(1.0);
-    }
-
-    img.small {
-      transform: scale(0.8);
-    }
-
-  </style>
+  <style>*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-box-sizing:border-box}body{font-family:"Trebuchet MS",Helvetica,sans-serif;background:black}input{background:grey;font-size:18px}form{display:inline-block}.centered{text-align:center}#pizzaSize{font-weight:800}.mover{position:fixed;z-index:-1;height:100px;width:73.333px}.randomPizzaContainer{float:left;display:flex}.randomPizzaContainer:after{content:"";display:table;clear:both}.container{background-color:rgba(240,60,60,0.8)}#sizeSlider{margin-bottom:25px}.large,.medium,.small{will-change:transform}img.large{transform:scale(1.2)}img.medium{transform:scale(1.0)}img.small{transform:scale(0.8)}</style>
   <!-- REV NOTE moved bootstrap CSS inline to remove render blocking CSS-->
   <style>
 /*!
@@ -91,45 +19,7 @@
   </style>
 
   <!-- REV NOTE updating the size of the random pizzas by assigning width value to style classes. this resolves the issue of forced synchronous layout -->
-  <style>
-
-    .3col {
-/*        width: 50%;
-*/    width: 33%;
-      height: 280px;
-    }
-
-    @media (min-width: 481px) and (max-width: 760px) {
-    /*  
-      .md {
-        width: 42%;
-      }
-      }*/
-
-      .mover {
-        height: 60px;
-        width: 43.8px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        font-size: 14px;
-      }
-
-      /*
-      .md {
-        width: 75%;
-        height: 100%;
-      }
-      }*/
-
-      .mover {
-        height: 40px;
-        width: 29.2px;
-      }
-    }
-  </style>
+  <style>.3col{width:33%;height:280px}@media(min-width:481px) and (max-width:760px){.mover{height:60px;width:43.8px}}@media(max-width:480px){body{font-size:14px}.mover{height:40px;width:29.2px}}</style>
   <!--REV NOTE set main.js as async b/c included functionality can happen after the content above the fold is loaded-->
   <script async type="text/javascript" src="js/main.js"></script>
 
@@ -284,38 +174,7 @@
   </div>
   <script>
     // Generates the sliding pizzas when the page loads.
-    document.addEventListener('DOMContentLoaded', function() {
-      var cols = 6;
-      var screenWidth = window.screen.width;
-      var s = 150;
-
-      for (var i = 0; i < 36; i++) { //REV NOTE decreased initial count (200) of bgd pizzas generated onload
-        var pic = document.createElement('picture');
-        var src1 = document.createElement('source');
-        var src2 = document.createElement('source');
-        var elem = document.createElement('img');
-
-        src1.media = "(max-width: 640px)";
-        src1.srcset = "images/pizza_lg_phn.png";
-        src2.media = "(min-width: 641px)";
-        src2.srcset = "images/pizza.png";
-        pic.appendChild(src1);
-        pic.appendChild(src2);
-
-        // REV NOTE used classList instead of classname; set height, width using existing mover class in CSS
-        elem.classList.add('mover');
-        elem.src = "images/pizza.png";
-        elem.basicLeft = (i % cols) * s;
-        elem.style.top = (Math.floor(i / cols) * s) + 'px';
-
-        // REV NOTE moved first updatePositions() logic into this function to avoid style recalculation
-        var phase = Math.sin(i % 6);
-        elem.style.left = elem.basicLeft + 100 * phase + 'px';
-        pic.appendChild(elem);
-
-        document.querySelector("#movingPizzas1").appendChild(pic);
-      }
-    });
+    document.addEventListener("DOMContentLoaded",function(){var g=6;var a=window.screen.width;var j=150;for(var e=0;e<36;e++){var f=document.createElement("picture");var c=document.createElement("source");var b=document.createElement("source");var d=document.createElement("img");c.media="(max-width: 640px)";c.srcset="images/pizza_lg_phn.png";b.media="(min-width: 641px)";b.srcset="images/pizza.png";f.appendChild(c);f.appendChild(b);d.classList.add("mover");d.src="images/pizza.png";d.basicLeft=(e%g)*j;d.style.top=(Math.floor(e/g)*j)+"px";var h=Math.sin(e%6);d.style.left=d.basicLeft+100*h+"px";f.appendChild(d);document.querySelector("#movingPizzas1").appendChild(f)}});
   </script>
 </body>
 
