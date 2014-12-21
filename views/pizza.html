@@ -4,7 +4,7 @@
   <title>Web Performance Analysis</title>
   <!-- REV NOTE added viewport -->
   <meta name="viewport" content="width=device-width, initial-scale=1" >
-  <!-- REV NOTE made the CSS inline-->
+  <!-- REV NOTE made the CSS inline and minified-->
   <style>*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-box-sizing:border-box}body{font-family:"Trebuchet MS",Helvetica,sans-serif;background:black}input{background:grey;font-size:18px}form{display:inline-block}.centered{text-align:center}#pizzaSize{font-weight:800}.mover{position:fixed;z-index:-1;height:100px;width:73.333px}.randomPizzaContainer{float:left;display:flex}.randomPizzaContainer:after{content:"";display:table;clear:both}.container{background-color:rgba(240,60,60,0.8)}#sizeSlider{margin-bottom:25px}.large,.medium,.small{will-change:transform}img.large{transform:scale(1.2)}img.medium{transform:scale(1.0)}img.small{transform:scale(0.8)}</style>
   <!-- REV NOTE moved bootstrap CSS inline to remove render blocking CSS-->
   <style>
@@ -172,8 +172,8 @@
     </div>
     <div id="footer" class="col-md-12">Thanks for visiting! &copy; 2014 Udacity</div>
   </div>
-  <script>
-    // Generates the sliding pizzas when the page loads.
+  <script>/* REV NOTE minified the inline js */
+    /* Generates the sliding pizzas when the page loads. */
     document.addEventListener("DOMContentLoaded",function(){var g=6;var a=window.screen.width;var j=150;for(var e=0;e<36;e++){var f=document.createElement("picture");var c=document.createElement("source");var b=document.createElement("source");var d=document.createElement("img");c.media="(max-width: 640px)";c.srcset="images/pizza_lg_phn.png";b.media="(min-width: 641px)";b.srcset="images/pizza.png";f.appendChild(c);f.appendChild(b);d.classList.add("mover");d.src="images/pizza.png";d.basicLeft=(e%g)*j;d.style.top=(Math.floor(e/g)*j)+"px";var h=Math.sin(e%6);d.style.left=d.basicLeft+100*h+"px";f.appendChild(d);document.querySelector("#movingPizzas1").appendChild(f)}});
   </script>
 </body>
